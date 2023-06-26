@@ -38,6 +38,7 @@ function Home() {
             conferenceDates: deadline[7],
             location: deadline[8],
             submissionDeadline: new Date(deadline[12]),
+            deadlineDetails: deadline[16]
           };
         });
         parsedConferences.splice(0, 1);
@@ -55,7 +56,7 @@ function Home() {
         flexDirection: 'column',
       }}
     >
-      <Stack spacing={2}>
+      <Stack spacing={2} display='flex' alignItems='center'>
         {conferences.map(conference => (
           <Conference {...conference} />
         ))}
