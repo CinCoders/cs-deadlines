@@ -3,7 +3,7 @@ import Conference, { ConferenceProps } from '../../components/Conference';
 import Papa from 'papaparse';
 // @ts-ignore
 import TopDeadlines from '../../database/TopDeadlines.csv';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function compare(a: ConferenceProps, b: ConferenceProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -24,26 +24,28 @@ function compare(a: ConferenceProps, b: ConferenceProps) {
 function Home() {
   const [conferences, setConferences] = useState<ConferenceProps[]>([]);
 
-  Papa.parse(TopDeadlines, {
-    download: true,
-    complete: function (results) {
-      console.log(results);
-      const parsedConferences = (results.data as string[][]).map((deadline: string[]) => {
-        return {
-          conference: deadline[4],
-          website: deadline[6],
-          conferenceDetail: deadline[5],
-          area: deadline[2],
-          conferenceDates: deadline[7],
-          location: deadline[8],
-          submissionDeadline: new Date(deadline[12]),
-        };
-      });
-      parsedConferences.splice(0, 1);
-      parsedConferences.sort(compare);
-      setConferences(parsedConferences);
-    },
-  });
+  useEffect(() => {
+    Papa.parse(TopDeadlines, {
+      download: true,
+      complete: function (results) {
+        console.log(results);
+        const parsedConferences = (results.data as string[][]).map((deadline: string[]) => {
+          return {
+            conference: deadline[4],
+            website: deadline[6],
+            conferenceDetail: deadline[5],
+            area: deadline[2],
+            conferenceDates: deadline[7],
+            location: deadline[8],
+            submissionDeadline: new Date(deadline[12]),
+          };
+        });
+        parsedConferences.splice(0, 1);
+        parsedConferences.sort(compare);
+        setConferences(parsedConferences);
+      },
+    });
+  }, []);
 
   return (
     <Box
