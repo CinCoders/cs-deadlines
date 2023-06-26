@@ -1,7 +1,8 @@
 {
-  "name": "conferences",
+  "name": "cs-deadlines",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/cs-deadlines-front",
   "dependencies": {
     "@cincoders/cinnamon": "^0.3.0",
     "@emotion/react": "^11.11.1",

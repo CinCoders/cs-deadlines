@@ -7,7 +7,7 @@ function Rotas() {
     <BrowserRouter>
       <Routes>
         <Route
-          path={'/'}
+          path={process.env.PUBLIC_URL}
           element={
             <ConferencePage>
               <Home />
