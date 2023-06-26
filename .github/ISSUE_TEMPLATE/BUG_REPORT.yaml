@@ -1,0 +1,36 @@
+name: Bug Report
+description: File a bug report
+title: '[Bug]: '
+labels: ['bug', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    attributes:
+      label: Current Behavior
+      description: A concise description of what you're experiencing.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of our package are you running?
+      placeholder: 3.0.0
+    validations:
+      required: true
+  - type: input
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Links? References? Images? Anything that will give us more context about the bug you are encountering!

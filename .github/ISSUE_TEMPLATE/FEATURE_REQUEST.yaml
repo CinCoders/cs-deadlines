@@ -1,0 +1,18 @@
+name: Feature Request
+description: Request a feature to our developers
+title: '[feature]: '
+labels: ['feature']
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    attributes:
+      label: Feature description
+      description: A concise description of what is the feature you wanna request.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Links? References? Images? Anything that will give us more context about how the feature is supposed to be!
