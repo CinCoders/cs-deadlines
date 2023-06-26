@@ -1,6 +1,6 @@
-import React from "react";
-import { Box, Link, Stack, Typography } from "@mui/material";
-import Countdown from "react-countdown";
+import React from 'react';
+import { Box, Link, Stack, Typography } from '@mui/material';
+import Countdown from 'react-countdown';
 
 export interface ConferenceProps {
   conference: string;
@@ -10,6 +10,7 @@ export interface ConferenceProps {
   conferenceDates: string;
   location: string;
   submissionDeadline: Date;
+  deadlineDetails: string;
 }
 
 const Conference: React.FC<ConferenceProps> = ({
@@ -20,6 +21,7 @@ const Conference: React.FC<ConferenceProps> = ({
   conferenceDates,
   location,
   submissionDeadline,
+  deadlineDetails,
 }) => {
   const renderCountdown = () => {
     const now = new Date();
@@ -32,49 +34,61 @@ const Conference: React.FC<ConferenceProps> = ({
       const seconds = Math.floor((timeDiff / 1000) % 60);
 
       return (
-        <Typography variant="h5">
-          {days} {days === 1 ? "day" : "days"}, {hours}
-          {"h"}, {minutes}
-          {"m"}, {seconds}
-          {"s"}
+        <Typography variant='h5'>
+          {days} {days === 1 ? 'day' : 'days'}, {hours}
+          {'h'}, {minutes}
+          {'m'}, {seconds}
+          {'s'}
         </Typography>
       );
     }
 
-    return (
-      <Typography variant="body2">
-        A data limite de submissão já passou.
-      </Typography>
-    );
+    return <Typography variant='body2'>A data limite de submissão já passou.</Typography>;
   };
 
   return (
-    <Box display="flex" alignItems="center">
-      <Stack spacing={1}>
-        <Typography variant="h5">
-          <Link href={website} color={"inherit"}>
+    <Box
+      display='flex'
+      width='80%'
+      alignItems='center'
+      justifyContent='space-between'
+      boxShadow={4}
+      p={3}
+      borderRadius={8}
+      gap='1vw'
+    >
+      <Stack spacing={1} width='50%'>
+        <Typography variant='h5'>
+          <Link href={website} color={'inherit'} target='_blank'>
             {conference}
           </Link>
         </Typography>
         <Stack spacing={0.5}>
-          <Typography variant="body1">{conferenceDetail}</Typography>
-          <Typography variant="body2">{area}</Typography>
-          <Typography variant="body2">
-            {conferenceDates} {location}
+          <Typography variant='body1'>{conferenceDetail}</Typography>
+          <Typography variant='body2'>{area}</Typography>
+        </Stack>
+      </Stack>
+      <Stack width='50%' justifyContent='space-between' display='flex' alignItems='center' flexDirection='row'>
+        <Stack spacing={0.5}>
+          <Countdown date={submissionDeadline} renderer={renderCountdown} />
+          <Typography color='#ff6961' fontWeight='bold'>
+            {submissionDeadline.toLocaleDateString('en-US', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })}
+          </Typography>
+          <Typography>{deadlineDetails}</Typography>
+        </Stack>
+        <Stack spacing={0.5}>
+          <Typography textAlign='end' variant='body1'>{conferenceDates}</Typography>
+          <Typography textAlign='end'>
+            <Link variant='body1' target='_blank' href={`http://maps.google.com/?q=${location}`}>
+              {location}
+            </Link>
           </Typography>
         </Stack>
       </Stack>
-      <Box ml={2}>
-        <Countdown date={submissionDeadline} renderer={renderCountdown} />
-        <Typography>
-          Deadline:{" "}
-          {submissionDeadline.toLocaleDateString("en-US", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })}
-        </Typography>
-      </Box>
     </Box>
   );
 };
