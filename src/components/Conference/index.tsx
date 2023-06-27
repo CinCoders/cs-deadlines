@@ -1,7 +1,9 @@
 import React from 'react';
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Countdown from 'react-countdown';
-export interface ConferenceProps {
+
+export interface DeadlineProps {
+  deadlineId: string;
   conference: string;
   website: string;
   conferenceDetail: string;
@@ -12,7 +14,7 @@ export interface ConferenceProps {
   deadlineDetails: string;
 }
 
-export const Conference: React.FC<ConferenceProps> = ({
+export const Conference: React.FC<DeadlineProps> = ({
   conference,
   website,
   conferenceDetail,
@@ -80,7 +82,9 @@ export const Conference: React.FC<ConferenceProps> = ({
           <Typography>{deadlineDetails}</Typography>
         </Stack>
         <Stack spacing={0.5}>
-          <Typography textAlign='end' variant='body1'>{conferenceDates}</Typography>
+          <Typography textAlign='end' variant='body1'>
+            {conferenceDates}
+          </Typography>
           <Typography textAlign='end'>
             <Link variant='body1' target='_blank' href={`http://maps.google.com/?q=${location}`}>
               {location}

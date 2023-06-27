@@ -1,11 +1,9 @@
-import { ConferenceProps } from '../../components/Conference';
+import { DeadlineProps } from '../../components/Conference';
 import Papa from 'papaparse';
-// @ts-ignore
-import TopDeadlines from '../../database/TopDeadlines.csv';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
 
-function compare(a: ConferenceProps, b: ConferenceProps) {
+function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
     if (a.submissionDeadline < new Date()) {
       return 1;
@@ -22,32 +20,36 @@ function compare(a: ConferenceProps, b: ConferenceProps) {
 }
 
 function Home() {
-  const [conferences, setConferences] = useState<ConferenceProps[]>([]);
+  const [deadlines, setDeadlines] = useState<DeadlineProps[]>([]);
 
   useEffect(() => {
-    Papa.parse(TopDeadlines, {
+    const sheetUrl = `https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${process.env.REACT_APP_SHEET_NAME}`;
+    Papa.parse(sheetUrl, {
       download: true,
       complete: function (results) {
-        const parsedConferences = (results.data as string[][]).map((deadline: string[]) => {
+        const rawDeadlines: string[][] = results.data as string[][];
+        const parsedDeadlines = rawDeadlines.map((deadline: string[]) => {
           return {
-            conference: deadline[4],
-            website: deadline[6],
-            conferenceDetail: deadline[5],
-            area: deadline[2],
-            conferenceDates: deadline[7],
-            location: deadline[8],
-            submissionDeadline: new Date(deadline[12]),
+            deadlineId: deadline[rawDeadlines[0].indexOf('DeadlineId')],
+            conference: deadline[rawDeadlines[0].indexOf('Conference')],
+            website: deadline[rawDeadlines[0].indexOf('WebSite')],
+            conferenceDetail: deadline[rawDeadlines[0].indexOf('ConferenceDetail')],
+            area: deadline[rawDeadlines[0].indexOf('Area')],
+            conferenceDates: deadline[rawDeadlines[0].indexOf('ConferenceDates')],
+            location: deadline[rawDeadlines[0].indexOf('Location')],
+            submissionDeadline: new Date(deadline[rawDeadlines[0].indexOf('DeadlineISO')]),
             deadlineDetails: deadline[16],
           };
         });
-        parsedConferences.splice(0, 1);
-        parsedConferences.sort(compare);
-        setConferences(parsedConferences);
+
+        parsedDeadlines.splice(0, 1);
+        parsedDeadlines.sort(compare);
+        setDeadlines(parsedDeadlines);
       },
     });
   }, []);
 
-  return <FilterPage conferences={conferences} />;
+  return <FilterPage deadlines={deadlines} />;
 }
 
 export default Home;
