@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "/cs-deadlines-front",
   "dependencies": {
-    "@cincoders/cinnamon": "^0.3.0",
+    "@cincoders/cinnamon": "^0.4.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.5",
