@@ -40,7 +40,7 @@ function Home() {
             conferenceDates: deadline[rawDeadlines[0].indexOf('ConferenceDates')],
             location: deadline[rawDeadlines[0].indexOf('Location')],
             submissionDeadline: new Date(deadline[rawDeadlines[0].indexOf('DeadlineISO')]),
-            deadlineDetails: deadline[16],
+            deadlineDetails: deadline[15],
           };
         });
 

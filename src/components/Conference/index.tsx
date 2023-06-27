@@ -75,13 +75,8 @@ export const Conference: React.FC<DeadlineProps> = ({
         <Stack spacing={0.5}>
           <Countdown date={submissionDeadline} renderer={renderCountdown} />
           <Typography color='#ff6961' fontWeight='bold'>
-            {submissionDeadline.toLocaleDateString('en-US', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-            })}
+            {deadlineDetails}
           </Typography>
-          <Typography>{deadlineDetails}</Typography>
         </Stack>
         <Stack spacing={0.5}>
           <Typography textAlign='end' variant='body1'>
