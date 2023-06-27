@@ -27,6 +27,9 @@ jobs:
         run: |
           npm ci
           npm run build
+        env:
+          REACT_APP_SHEET_ID: ${{ vars.REACT_APP_SHEET_ID }}
+          REACT_APP_SHEET_NAME: ${{ vars.REACT_APP_SHEET_NAME }}
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v1
