@@ -66,7 +66,9 @@ export const Conference: React.FC<DeadlineProps> = ({
         </Typography>
         <Stack spacing={0.5}>
           <Typography variant='body1'>{conferenceDetail}</Typography>
-          <Typography variant='body2'>{area}</Typography>
+          <Typography variant='body2' fontWeight='bold'>
+            {area}
+          </Typography>
         </Stack>
       </Stack>
       <Stack width='50%' justifyContent='space-between' display='flex' alignItems='center' flexDirection='row'>
