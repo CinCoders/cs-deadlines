@@ -1,8 +1,9 @@
 {
   "name": "cs-deadlines",
   "version": "0.1.0",
+  "description": "Deadlines from the Top Computer Science Conferences!",
   "private": true,
-  "homepage": "/cs-deadlines",
+  "homepage": "https://cs-deadlines.cin.ufpe.br/",
   "dependencies": {
     "@cincoders/cinnamon": "^0.4.0",
     "@emotion/react": "^11.11.1",
