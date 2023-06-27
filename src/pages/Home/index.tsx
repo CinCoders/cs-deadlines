@@ -1,4 +1,3 @@
-import { Box, Stack } from '@mui/material';
 import { ConferenceProps } from '../../components/Conference';
 import Papa from 'papaparse';
 // @ts-ignore

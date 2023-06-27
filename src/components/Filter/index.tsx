@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Conference, { ConferenceProps } from '../Conference';
 
 import { Box, Stack, Input, Typography } from '@mui/material';
-import { useEffect } from 'react';
 
 interface FilterProps {
   conferences: ConferenceProps[];
