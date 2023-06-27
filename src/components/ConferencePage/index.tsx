@@ -14,9 +14,10 @@ export default function ConferencePage({ children }: PageProps) {
       }}
       footer={{
         copyrightText: 'CIn UFPE | Todos os direitos reservados',
+        largeFooter: false,
       }}
       centralized
-      haveToast
+      haveToast={false}
       createNavbarContext={false}
     >
       {children}
