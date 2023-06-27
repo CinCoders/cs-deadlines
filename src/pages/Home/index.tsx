@@ -36,7 +36,7 @@ function Home() {
             conference: deadline[rawDeadlines[0].indexOf('Conference')],
             website: deadline[rawDeadlines[0].indexOf('WebSite')],
             conferenceDetail: deadline[rawDeadlines[0].indexOf('ConferenceDetail')],
-            area: deadline[rawDeadlines[0].indexOf('Area')],
+            area: deadline[rawDeadlines[0].indexOf('GreatArea')] + ' - ' + deadline[rawDeadlines[0].indexOf('Area')],
             conferenceDates: deadline[rawDeadlines[0].indexOf('ConferenceDates')],
             location: deadline[rawDeadlines[0].indexOf('Location')],
             submissionDeadline: new Date(deadline[rawDeadlines[0].indexOf('DeadlineISO')]),
