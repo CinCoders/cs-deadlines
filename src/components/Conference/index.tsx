@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Countdown from 'react-countdown';
-
 export interface ConferenceProps {
   conference: string;
   website: string;
@@ -13,7 +12,7 @@ export interface ConferenceProps {
   deadlineDetails: string;
 }
 
-const Conference: React.FC<ConferenceProps> = ({
+export const Conference: React.FC<ConferenceProps> = ({
   conference,
   website,
   conferenceDetail,
