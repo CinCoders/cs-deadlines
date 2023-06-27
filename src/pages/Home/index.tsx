@@ -1,9 +1,10 @@
 import { Box, Stack } from '@mui/material';
-import Conference, { ConferenceProps } from '../../components/Conference';
+import { ConferenceProps } from '../../components/Conference';
 import Papa from 'papaparse';
 // @ts-ignore
 import TopDeadlines from '../../database/TopDeadlines.csv';
 import { useEffect, useState } from 'react';
+import FilterPage from '../../components/Filter';
 
 function compare(a: ConferenceProps, b: ConferenceProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -28,7 +29,6 @@ function Home() {
     Papa.parse(TopDeadlines, {
       download: true,
       complete: function (results) {
-        console.log(results);
         const parsedConferences = (results.data as string[][]).map((deadline: string[]) => {
           return {
             conference: deadline[4],
@@ -38,7 +38,7 @@ function Home() {
             conferenceDates: deadline[7],
             location: deadline[8],
             submissionDeadline: new Date(deadline[12]),
-            deadlineDetails: deadline[16]
+            deadlineDetails: deadline[16],
           };
         });
         parsedConferences.splice(0, 1);
@@ -48,21 +48,7 @@ function Home() {
     });
   }, []);
 
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}
-    >
-      <Stack spacing={2} display='flex' alignItems='center'>
-        {conferences.map(conference => (
-          <Conference {...conference} />
-        ))}
-      </Stack>
-    </Box>
-  );
+  return <FilterPage conferences={conferences} />;
 }
 
 export default Home;
