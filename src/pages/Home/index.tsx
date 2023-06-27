@@ -2,6 +2,7 @@ import { DeadlineProps } from '../../components/Conference';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
+import { CircularProgress } from '@mui/material';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -21,6 +22,7 @@ function compare(a: DeadlineProps, b: DeadlineProps) {
 
 function Home() {
   const [deadlines, setDeadlines] = useState<DeadlineProps[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const sheetUrl = `https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${process.env.REACT_APP_SHEET_NAME}`;
@@ -45,11 +47,17 @@ function Home() {
         parsedDeadlines.splice(0, 1);
         parsedDeadlines.sort(compare);
         setDeadlines(parsedDeadlines);
+        setLoading(false);
       },
     });
   }, []);
 
-  return <FilterPage deadlines={deadlines} />;
+  return (
+    <main>
+      {loading && <CircularProgress />}
+      {!loading && <FilterPage deadlines={deadlines} />}
+    </main>
+  );
 }
 
 export default Home;
