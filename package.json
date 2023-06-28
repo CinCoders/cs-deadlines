@@ -1,22 +1,29 @@
 {
   "name": "cs-deadlines",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deadlines from the Top Computer Science Conferences!",
+  "license": "MIT",
   "private": true,
   "homepage": "https://cs-deadlines.cin.ufpe.br/",
+  "author": "CInCoders <cincoders@cin.ufpe.br> (https://cincoders.cin.ufpe.br)",
+  "bugs": {
+    "url": "https://github.com/cincoders/cs-deadlines/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cincoders/cs-deadlines"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@cincoders/cinnamon": "^0.4.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.5",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.36",
-    "@types/papaparse": "^5.3.7",
-    "@types/react": "^18.1.0",
-    "@types/react-dom": "^18.2.6",
     "papaparse": "^5.4.1",
     "react": "^18.1.0",
     "react-countdown": "^2.3.5",
@@ -25,11 +32,16 @@
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.36",
+    "@types/papaparse": "^5.3.7",
+    "@types/react": "^18.1.0",
+    "@types/react-dom": "^18.2.6",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
   "eslintConfig": {
     "extends": [
