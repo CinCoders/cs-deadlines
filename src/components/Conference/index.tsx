@@ -50,35 +50,48 @@ export const Conference: React.FC<DeadlineProps> = ({
   return (
     <Box
       display='flex'
-      width='80%'
+      maxWidth='1200px'
+      width='100%'
       alignItems='center'
-      justifyContent='space-between'
       boxShadow={4}
       p={3}
       borderRadius={8}
-      gap='1vw'
+      flexWrap='wrap'
+      gap='2vw'
+      sx={{
+        '&::after': {
+          boxSizing: 'inherit',
+        },
+        '&::before': {
+          boxSizing: 'inherit',
+        },
+      }}
     >
-      <Stack spacing={1} width='50%'>
-        <Typography variant='h5'>
-          <Link href={website} color={'inherit'} target='_blank'>
-            {conference}
-          </Link>
-        </Typography>
-        <Stack spacing={0.5}>
-          <Typography variant='body1'>{conferenceDetail}</Typography>
-          <Typography variant='body2' fontWeight='bold'>
-            {area}
+      <Stack
+        spacing={1}
+        id='deadlineDetails'
+        justifyContent='space-between'
+        display='flex'
+        alignItems='center'
+        flexDirection='row'
+        minWidth='65%'
+      >
+        <Stack width='50%'>
+          <Typography variant='h5'>
+            <Link href={website} color={'inherit'} target='_blank'>
+              {conference}
+            </Link>
           </Typography>
+          <Stack spacing={0.5}>
+            <Typography variant='body1' flexWrap='wrap'>
+              {conferenceDetail}
+            </Typography>
+            <Typography variant='body2' fontWeight='bold'>
+              {area}
+            </Typography>
+          </Stack>
         </Stack>
-      </Stack>
-      <Stack width='50%' justifyContent='space-between' display='flex' alignItems='center' flexDirection='row'>
-        <Stack spacing={0.5}>
-          <Countdown date={submissionDeadline} renderer={renderCountdown} />
-          <Typography color='#ff6961' fontWeight='bold'>
-            {deadlineDetails}
-          </Typography>
-        </Stack>
-        <Stack spacing={0.5}>
+        <Stack spacing={0.5} width='50%'>
           <Typography textAlign='end' variant='body1'>
             {conferenceDates}
           </Typography>
@@ -86,6 +99,14 @@ export const Conference: React.FC<DeadlineProps> = ({
             <Link variant='body1' target='_blank' href={`http://maps.google.com/?q=${location}`}>
               {location}
             </Link>
+          </Typography>
+        </Stack>
+      </Stack>
+      <Stack spacing={0.5}>
+        <Stack display='flex' justifyContent='flex-end'>
+          <Countdown date={submissionDeadline} renderer={renderCountdown} />
+          <Typography color='#ff6961' fontWeight='bold'>
+            {deadlineDetails}
           </Typography>
         </Stack>
       </Stack>
