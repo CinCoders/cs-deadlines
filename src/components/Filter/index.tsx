@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Conference, { DeadlineProps } from '../Conference';
 
-import { Box, Stack, Input, Typography, TextField } from '@mui/material';
+import { Box, Stack, Typography, TextField } from '@mui/material';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
@@ -21,7 +21,15 @@ const FilterPage: React.FC<FilterProps> = ({ deadlines }) => {
   );
   return (
     <Box width='100%' display='flex' flexDirection='column'>
-      <TextField type='text' id="standard-basic" label="Filter" variant="standard" value={filterText} onChange={handleInputChange} placeholder='Type to filter' />
+      <TextField
+        type='text'
+        id='standard-basic'
+        label='Filter'
+        variant='standard'
+        value={filterText}
+        onChange={handleInputChange}
+        placeholder='Type to filter'
+      />
       <Stack marginTop='15px' spacing={2} display='flex' alignItems='center' width='100%'>
         {filteredDeadlines.map(deadline => {
           return <Conference key={deadline.deadlineId} {...deadline} />;
