@@ -2,7 +2,7 @@ import { DeadlineProps } from '../../components/Conference';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Link, Typography } from '@mui/material';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -55,6 +55,12 @@ function Home() {
   return (
     <main>
       {loading && <CircularProgress />}
+      <Typography variant='h5'>
+        The top CS conferences are listed in{' '}
+        <Link variant='h5' target='_blank' href={`http://CSRankings.org`}>
+          CSRankings.org{' '}
+        </Link>
+      </Typography>
       {!loading && <FilterPage deadlines={deadlines} />}
     </main>
   );
