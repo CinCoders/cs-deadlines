@@ -2,6 +2,7 @@ import { DeadlineProps } from '../../components/Conference';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
+import { FilterByArea } from '../../components/FilterByArea';
 import { CircularProgress, Link, Typography } from '@mui/material';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
@@ -37,6 +38,9 @@ function Home() {
             website: deadline[rawDeadlines[0].indexOf('WebSite')],
             conferenceDetail: deadline[rawDeadlines[0].indexOf('ConferenceDetail')],
             area: deadline[rawDeadlines[0].indexOf('GreatArea')] + ' - ' + deadline[rawDeadlines[0].indexOf('Area')],
+            greatArea: deadline[rawDeadlines[0].indexOf('GreatArea')],
+            areaID: deadline[rawDeadlines[0].indexOf('AreaID')],
+            specificArea: deadline[rawDeadlines[0].indexOf('Area')],
             conferenceDates: deadline[rawDeadlines[0].indexOf('ConferenceDates')],
             location: deadline[rawDeadlines[0].indexOf('Location')],
             submissionDeadline: new Date(deadline[rawDeadlines[0].indexOf('DeadlineISO')]),
@@ -48,23 +52,31 @@ function Home() {
         parsedDeadlines.sort(compare);
         setDeadlines(parsedDeadlines);
         setLoading(false);
+        console.log(parsedDeadlines);
       },
     });
   }, []);
 
   return (
-    <main>
-      {loading && <CircularProgress />}
-      {!loading && (
-        <Typography variant='h5'>
-          The top CS conferences are listed in{' '}
-          <Link variant='h5' target='_blank' href={`http://CSRankings.org`}>
-            CSRankings.org{' '}
-          </Link>
-        </Typography>
-      )}
-      {!loading && <FilterPage deadlines={deadlines} />}
-    </main>
+    <>
+      <main>
+        {loading && <CircularProgress />}
+        {!loading && (
+          <>
+            <FilterByArea deadlines={deadlines} />
+            <Typography variant='h5'>
+              The top CS conferences are listed in{' '}
+              <Link variant='h5' target='_blank' href={`http://CSRankings.org`}>
+                CSRankings.org{' '}
+              </Link>
+            </Typography>
+            <FilterPage deadlines={deadlines} />
+            <FilterByArea deadlines={deadlines} />
+          </>
+        )}
+      </main>
+      <menu> </menu>
+    </>
   );
 }
 
