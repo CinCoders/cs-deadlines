@@ -9,6 +9,7 @@ export interface DeadlineProps {
   conference: string;
   website: string;
   conferenceDetail: string;
+  subArea: string;
   area: string;
   conferenceDates: string;
   location: string;
