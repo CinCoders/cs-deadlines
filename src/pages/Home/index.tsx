@@ -54,15 +54,13 @@ function Home() {
 
   return (
     <main>
+      <Typography variant='h5'>
+        The top CS conferences are listed in{' '}
+        <Link target='_blank' href={`https://CSRankings.org`}>
+          CSRankings.org
+        </Link>
+      </Typography>
       {loading && <CircularProgress />}
-      {!loading && (
-        <Typography variant='h5'>
-          The top CS conferences are listed in{' '}
-          <Link variant='h5' target='_blank' href={`http://CSRankings.org`}>
-            CSRankings.org{' '}
-          </Link>
-        </Typography>
-      )}
       {!loading && <FilterPage deadlines={deadlines} />}
     </main>
   );

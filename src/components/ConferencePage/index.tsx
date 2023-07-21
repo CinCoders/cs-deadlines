@@ -1,5 +1,4 @@
 import { Page } from '@cincoders/cinnamon';
-// import logoCin from '../../assets/cin-logo.svg';
 import logoCin from '../../assets/cin-logo.svg';
 
 interface PageProps {
