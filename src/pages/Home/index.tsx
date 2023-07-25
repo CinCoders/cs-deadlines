@@ -24,6 +24,7 @@ function compare(a: DeadlineProps, b: DeadlineProps) {
 function Home() {
   const [deadlines, setDeadlines] = useState<DeadlineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [checked, setChecked] = useState<string[]>([]);
 
   useEffect(() => {
     const sheetUrl = `https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${process.env.REACT_APP_SHEET_NAME}`;
@@ -51,11 +52,14 @@ function Home() {
         parsedDeadlines.splice(0, 1);
         parsedDeadlines.sort(compare);
         setDeadlines(parsedDeadlines);
-        console.log(parsedDeadlines);
         setLoading(false);
       },
     });
   }, []);
+
+  const handleCheckedChange = (checked: string[]) => {
+    setChecked(checked);
+  };
 
   return (
     <main>
@@ -68,9 +72,9 @@ function Home() {
       {loading && <CircularProgress />}
       {!loading && (
         <>
-          <FilterByArea deadlines={deadlines} />
+          <FilterByArea deadlines={deadlines} checked={checked} onCheckedChange={handleCheckedChange} />
 
-          <FilterPage deadlines={deadlines} />
+          <FilterPage deadlines={deadlines} checked={checked} />
         </>
       )}
     </main>

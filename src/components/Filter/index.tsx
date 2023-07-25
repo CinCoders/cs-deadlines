@@ -5,9 +5,10 @@ import { Box, Stack, Typography, TextField } from '@mui/material';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
+  checked: string[];
 }
 
-const FilterPage: React.FC<FilterProps> = ({ deadlines }) => {
+const FilterPage: React.FC<FilterProps> = ({ deadlines, checked }) => {
   const [filterText, setFilterText] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
