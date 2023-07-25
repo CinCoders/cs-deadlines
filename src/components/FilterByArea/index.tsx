@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Conference, { DeadlineProps } from '../Conference';
+import Checkbox from '@mui/material/Checkbox';
+
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -10,24 +12,21 @@ interface FilterProps {
   deadlines: DeadlineProps[];
 }
 
-interface SubArea {
-  id: string;
-  name: string;
-}
-
-interface Area {
-  name: string;
-  subAreas: SubArea[];
-}
-
 export const FilterByArea: React.FC<FilterProps> = ({ deadlines }) => {
-  const uniqueAreas = new Set<string>();
-  const uniqueSubAreas = new Set<string>();
-
-  // deadlines.forEach(deadline => {
-  //   uniqueAreas.add(deadline.greatArea);
-  //   uniqueSubAreas.add(deadline.subArea);
-  // });
+  const createTreeData = (deadlines: DeadlineProps[]) => {
+    const treeData: { [key: string]: string[] } = {};
+    deadlines.forEach(deadline => {
+      const { greatArea, subArea } = deadline;
+      if (!treeData[greatArea]) {
+        treeData[greatArea] = [];
+      }
+      if (!treeData[greatArea].includes(subArea)) {
+        treeData[greatArea].push(subArea);
+      }
+    });
+    return treeData;
+  };
+  const treeData = createTreeData(deadlines);
 
   return (
     <div>
@@ -36,24 +35,32 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines }) => {
         aria-label='area-navigation system'
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
+        multiSelect
       >
-        {deadlines.map(deadline => {
-          const uniqueSubAreas = new Set<string>();
-          if (!uniqueAreas.has(deadline.greatArea)) {
-            uniqueAreas.add(deadline.greatArea);
-            if (!uniqueSubAreas.has(deadline.subArea)) {
-              uniqueSubAreas.add(deadline.subArea);
-            }
-            return (
-              <TreeItem key={deadline.greatArea} nodeId={deadline.greatArea} label={deadline.greatArea}>
-                <TreeItem key={deadline.subArea} nodeId={deadline.subArea} label={deadline.subArea} />
-              </TreeItem>
-            );
-            // iterate through areas return unique values
-            // iterate through subareas return unique values
-            // return treeview with areas and subareas
-          }
-          return null;
+        {Object.keys(treeData).map(area => {
+          return (
+            <TreeItem key={area} nodeId={area} label={area}>
+              {treeData[area].map(subArea => {
+                return (
+                  <TreeItem
+                    key={subArea}
+                    nodeId={subArea}
+                    label={
+                      <>
+                        {/* <Checkbox
+                          checked={selectedNodes.indexOf(nodes.id) !== -1}
+                          tabIndex={-1}
+                          disableRipple
+                          onClick={event => handleNodeSelect(event, nodes.id)}
+                        /> */}
+                        {subArea}
+                      </>
+                    }
+                  />
+                );
+              })}
+            </TreeItem>
+          );
         })}
       </TreeView>
     </div>

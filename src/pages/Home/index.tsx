@@ -51,6 +51,7 @@ function Home() {
         parsedDeadlines.splice(0, 1);
         parsedDeadlines.sort(compare);
         setDeadlines(parsedDeadlines);
+        console.log(parsedDeadlines);
         setLoading(false);
       },
     });
