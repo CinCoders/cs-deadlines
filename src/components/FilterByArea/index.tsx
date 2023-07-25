@@ -42,7 +42,7 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
 
     if (nodeId in treeData) {
       treeData[nodeId].forEach(subarea => {
-        const childNodeId = `${nodeId}-${subarea}`;
+        const childNodeId = `${nodeId}_${subarea}`;
         if (!newChecked.includes(childNodeId) && newChecked.includes(nodeId)) {
           newChecked.push(childNodeId);
         } else if (newChecked.includes(childNodeId) && !newChecked.includes(nodeId)) {
@@ -52,11 +52,12 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
       });
     }
 
-    const parentIndex = nodeId.lastIndexOf('-');
+    const parentIndex = nodeId.lastIndexOf('_');
     if (parentIndex !== -1) {
       const parent = nodeId.substring(0, parentIndex);
       const siblings = treeData[parent];
       const siblingsChecked = siblings.every(sibling => newChecked.includes(sibling));
+
       if (siblingsChecked && !newChecked.includes(parent)) {
         newChecked.push(parent);
       } else if (!siblingsChecked && newChecked.includes(parent)) {
@@ -94,7 +95,7 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
               }
             >
               {treeData[area].map(subArea => {
-                const childNodeId = `${area}-${subArea}`;
+                const childNodeId = `${area}_${subArea}`;
                 return (
                   <TreeItem
                     key={childNodeId}
