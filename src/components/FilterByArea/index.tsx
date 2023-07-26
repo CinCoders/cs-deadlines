@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Link, Stack, Typography } from '@mui/material';
-import Conference, { DeadlineProps } from '../Conference';
+import React from 'react';
+import { Typography } from '@mui/material';
+import { DeadlineProps } from '../Conference';
 import Checkbox from '@mui/material/Checkbox';
 
 import TreeView from '@mui/lab/TreeView';
@@ -19,7 +19,6 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
     const treeData: { [key: string]: string[] } = {};
     deadlines.forEach(deadline => {
       const { greatArea, subArea } = deadline;
-      // const nodeId = `${greatArea}-${subArea}`;
       if (!treeData[greatArea]) {
         treeData[greatArea] = [];
       }
@@ -64,14 +63,11 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
         newChecked.splice(newChecked.indexOf(parent), 1);
       }
     }
-    // if (!currentSelected) {
     return newChecked;
   };
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, nodeId: string) => {
     const newChecked = toggleChecked(checked, nodeId);
-    // console.log({ nodeId });
     onCheckedChange(newChecked);
-    console.log(newChecked);
   };
 
   return (

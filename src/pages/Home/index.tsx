@@ -53,7 +53,6 @@ function Home() {
         parsedDeadlines.sort(compare);
         setDeadlines(parsedDeadlines);
         setLoading(false);
-        console.log(parsedDeadlines);
       },
     });
   }, []);

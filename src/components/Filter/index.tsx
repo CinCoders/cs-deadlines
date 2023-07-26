@@ -15,11 +15,21 @@ const FilterPage: React.FC<FilterProps> = ({ deadlines, checked }) => {
     setFilterText(event.target.value);
   };
 
-  const filteredDeadlines: DeadlineProps[] = deadlines.filter(deadline =>
+  const getCheckedAreaNames = (): string[] => {
+    return checked.map(nodeId => nodeId.split('_')[1]);
+  };
+
+  const filteredDeadlinesByText: DeadlineProps[] = deadlines.filter(deadline =>
     Object.values(deadline).some(
       value => typeof value === 'string' && value.toLowerCase().includes(filterText.toLowerCase()),
     ),
   );
+
+  const filteredDeadlines: DeadlineProps[] =
+    checked.length > 0
+      ? filteredDeadlinesByText.filter(deadline => getCheckedAreaNames().includes(deadline.subArea))
+      : filteredDeadlinesByText;
+
   return (
     <Box width='100%' display='flex' flexDirection='column'>
       <TextField
