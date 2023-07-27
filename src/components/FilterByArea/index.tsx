@@ -7,12 +7,16 @@ import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
+import { styled, css } from '@mui/material/styles';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
   checked: string[];
   onCheckedChange: (checked: string[]) => void;
 }
+const StyledTreeItemLabel = styled('div')({
+  fontSize: '14px',
+});
 
 export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onCheckedChange }) => {
   const createTreeData = (deadlines: DeadlineProps[]) => {
@@ -72,7 +76,7 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
 
   return (
     <div>
-      <Typography variant='h6'>Filters - Areas</Typography>
+      <Typography variant='h6'>Filter by Areas</Typography>
       <TreeView
         aria-label='area-navigation system'
         defaultCollapseIcon={<ExpandMoreIcon />}
@@ -84,10 +88,10 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
               key={area}
               nodeId={area}
               label={
-                <>
+                <StyledTreeItemLabel>
                   <Checkbox checked={checked.includes(area)} onChange={e => handleCheckboxChange(e, area)} />
                   {area}
-                </>
+                </StyledTreeItemLabel>
               }
             >
               {treeData[area].map(subArea => {
@@ -97,13 +101,14 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
                     key={childNodeId}
                     nodeId={childNodeId}
                     label={
-                      <>
+                      <StyledTreeItemLabel>
                         <Checkbox
+                          size='small'
                           checked={checked.includes(childNodeId)}
                           onChange={e => handleCheckboxChange(e, childNodeId)}
                         />
                         {subArea}
-                      </>
+                      </StyledTreeItemLabel>
                     }
                   />
                 );
