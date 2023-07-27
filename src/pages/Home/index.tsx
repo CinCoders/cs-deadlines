@@ -4,6 +4,18 @@ import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
 import { CircularProgress, Link, Typography } from '@mui/material';
 import { FilterByArea } from '../../components/FilterByArea';
+import styled from 'styled-components';
+
+const FilterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+`;
+
+const FilterByAreaContainer = styled.div`
+  width: 20%;
+  margin-right: 20px;
+`;
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -71,11 +83,13 @@ function Home() {
       </Typography>
       {loading && <CircularProgress />}
       {!loading && (
-        <>
-          <FilterByArea deadlines={deadlines} checked={checked} onCheckedChange={handleCheckedChange} />
+        <FilterContainer>
+          <FilterByAreaContainer>
+            <FilterByArea deadlines={deadlines} checked={checked} onCheckedChange={handleCheckedChange} />
+          </FilterByAreaContainer>
 
           <FilterPage deadlines={deadlines} checked={checked} />
-        </>
+        </FilterContainer>
       )}
     </main>
   );
