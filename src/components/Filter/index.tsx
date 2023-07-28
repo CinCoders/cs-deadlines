@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Conference, { DeadlineProps } from '../Conference';
-
 import { Box, Stack, Typography, TextField } from '@mui/material';
+import { CheckedContext, CheckedContextType } from '../../contexts/CheckedContext';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
-  checked: string[];
 }
 
-const FilterPage: React.FC<FilterProps> = ({ deadlines, checked }) => {
+const FilterPage: React.FC<FilterProps> = ({ deadlines }) => {
+  const { checked } = useContext(CheckedContext) as CheckedContextType;
   const [filterText, setFilterText] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

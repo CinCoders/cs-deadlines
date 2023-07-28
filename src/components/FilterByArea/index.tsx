@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Typography } from '@mui/material';
 import { DeadlineProps } from '../Conference';
 import Checkbox from '@mui/material/Checkbox';
-
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
-import { styled, css } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import { CheckedContext, CheckedContextType } from '../../contexts/CheckedContext';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
-  checked: string[];
-  onCheckedChange: (checked: string[]) => void;
 }
 const StyledTreeItemLabel = styled('div')({
   fontSize: '14px',
 });
 
-export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onCheckedChange }) => {
+export const FilterByArea: React.FC<FilterProps> = ({ deadlines }) => {
+  const { checked, setChecked } = useContext(CheckedContext) as CheckedContextType;
+
   const createTreeData = (deadlines: DeadlineProps[]) => {
     const treeData: { [key: string]: string[] } = {};
     deadlines.forEach(deadline => {
@@ -71,7 +71,7 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
   };
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, nodeId: string) => {
     const newChecked = toggleChecked(checked, nodeId);
-    onCheckedChange(newChecked);
+    setChecked(newChecked);
   };
 
   return (

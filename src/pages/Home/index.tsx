@@ -5,6 +5,7 @@ import FilterPage from '../../components/Filter';
 import { CircularProgress, Link, Typography } from '@mui/material';
 import { FilterByArea } from '../../components/FilterByArea';
 import styled from 'styled-components';
+import { CheckedContextProvider } from '../../contexts/CheckedContext';
 
 const FilterContainer = styled.div`
   display: flex;
@@ -83,13 +84,15 @@ function Home() {
       </Typography>
       {loading && <CircularProgress />}
       {!loading && (
-        <FilterContainer>
-          <FilterByAreaContainer>
-            <FilterByArea deadlines={deadlines} checked={checked} onCheckedChange={handleCheckedChange} />
-          </FilterByAreaContainer>
+        <CheckedContextProvider>
+          <FilterContainer>
+            <FilterByAreaContainer>
+              <FilterByArea deadlines={deadlines} />
+            </FilterByAreaContainer>
 
-          <FilterPage deadlines={deadlines} checked={checked} />
-        </FilterContainer>
+            <FilterPage deadlines={deadlines} />
+          </FilterContainer>
+        </CheckedContextProvider>
       )}
     </main>
   );
