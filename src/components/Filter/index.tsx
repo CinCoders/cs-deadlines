@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import Conference, { DeadlineProps } from '../Conference';
-
 import { Box, Stack, Typography, TextField } from '@mui/material';
-
 interface FilterProps {
   deadlines: DeadlineProps[];
-  checked: string[];
+  checkedValues: string[];
 }
 
-const FilterPage: React.FC<FilterProps> = ({ deadlines, checked }) => {
+const FilterPage: React.FC<FilterProps> = ({ deadlines, checkedValues }) => {
   const [filterText, setFilterText] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +14,7 @@ const FilterPage: React.FC<FilterProps> = ({ deadlines, checked }) => {
   };
 
   const getCheckedAreaNames = (): string[] => {
-    return checked.map(nodeId => nodeId.split('_')[1]);
+    return checkedValues.map(nodeId => nodeId.split('_')[1]);
   };
 
   const filteredDeadlinesByText: DeadlineProps[] = deadlines.filter(deadline =>
@@ -26,7 +24,7 @@ const FilterPage: React.FC<FilterProps> = ({ deadlines, checked }) => {
   );
 
   const filteredDeadlines: DeadlineProps[] =
-    checked.length > 0
+    checkedValues.length > 0
       ? filteredDeadlinesByText.filter(deadline => getCheckedAreaNames().includes(deadline.subArea))
       : filteredDeadlinesByText;
 

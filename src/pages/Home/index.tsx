@@ -4,18 +4,7 @@ import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
 import { CircularProgress, Link, Typography } from '@mui/material';
 import FilterByArea from '../../components/FilterByArea';
-import styled from 'styled-components';
-
-const FilterContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-`;
-
-const FilterByAreaContainer = styled.div`
-  width: 20%;
-  margin-right: 20px;
-`;
+import { FilterContainer, FilterByAreaContainer } from './styles';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -36,7 +25,7 @@ function compare(a: DeadlineProps, b: DeadlineProps) {
 function Home() {
   const [deadlines, setDeadlines] = useState<DeadlineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [checked, setChecked] = useState<string[]>([]);
+  const [checkedValues, setCheckedValues] = useState<string[]>([]);
 
   useEffect(() => {
     const sheetUrl = `https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${process.env.REACT_APP_SHEET_NAME}`;
@@ -69,8 +58,8 @@ function Home() {
     });
   }, []);
 
-  const handleCheckedChange = (checked: string[]) => {
-    setChecked(checked);
+  const handleCheckedChange = (checkedValues: string[]) => {
+    setCheckedValues(checkedValues);
   };
 
   return (
@@ -85,10 +74,10 @@ function Home() {
       {!loading && (
         <FilterContainer>
           <FilterByAreaContainer>
-            <FilterByArea deadlines={deadlines} checked={checked} onCheckedChange={handleCheckedChange} />
+            <FilterByArea deadlines={deadlines} checkedValues={checkedValues} onCheckedChange={handleCheckedChange} />
           </FilterByAreaContainer>
 
-          <FilterPage deadlines={deadlines} checked={checked} />
+          <FilterPage deadlines={deadlines} checkedValues={checkedValues} />
         </FilterContainer>
       )}
     </main>

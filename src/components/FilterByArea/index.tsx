@@ -7,18 +7,14 @@ import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
-import { styled, css } from '@mui/material/styles';
-
+import { StyledTreeItemLabel } from './styles';
 interface FilterProps {
   deadlines: DeadlineProps[];
-  checked: string[];
+  checkedValues: string[];
   onCheckedChange: (checked: string[]) => void;
 }
-const StyledTreeItemLabel = styled('div')({
-  fontSize: '14px',
-});
 
-export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onCheckedChange }) => {
+const FilterByArea: React.FC<FilterProps> = ({ deadlines, checkedValues, onCheckedChange }) => {
   const createTreeData = (deadlines: DeadlineProps[]) => {
     const treeData: { [key: string]: string[] } = {};
     deadlines.forEach(deadline => {
@@ -34,24 +30,24 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
   };
   const treeData = createTreeData(deadlines);
 
-  const toggleChecked = (currentChecked: string[], nodeId: string): string[] => {
-    const newChecked = [...currentChecked];
-    const currentIndex = currentChecked.indexOf(nodeId);
+  const toggleChecked = (currentCheckedValues: string[], nodeId: string): string[] => {
+    const newCheckedValues = [...currentCheckedValues];
+    const currentIndex = currentCheckedValues.indexOf(nodeId);
     if (currentIndex === -1) {
-      newChecked.push(nodeId);
+      newCheckedValues.push(nodeId);
     } else {
-      newChecked.splice(currentIndex, 1);
+      newCheckedValues.splice(currentIndex, 1);
     }
 
     if (nodeId in treeData) {
       treeData[nodeId].forEach(subarea => {
         const childNodeId = `${nodeId}_${subarea}`;
-        if (!newChecked.includes(childNodeId) && newChecked.includes(nodeId)) {
-          newChecked.push(childNodeId);
-        } else if (newChecked.includes(childNodeId) && !newChecked.includes(nodeId)) {
-          newChecked.splice(newChecked.indexOf(childNodeId), 1);
+        if (!newCheckedValues.includes(childNodeId) && newCheckedValues.includes(nodeId)) {
+          newCheckedValues.push(childNodeId);
+        } else if (newCheckedValues.includes(childNodeId) && !newCheckedValues.includes(nodeId)) {
+          newCheckedValues.splice(newCheckedValues.indexOf(childNodeId), 1);
         }
-        newChecked.concat(toggleChecked(newChecked, childNodeId));
+        newCheckedValues.concat(toggleChecked(newCheckedValues, childNodeId));
       });
     }
 
@@ -59,19 +55,19 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
     if (parentIndex !== -1) {
       const parent = nodeId.substring(0, parentIndex);
       const siblings = treeData[parent];
-      const siblingsChecked = siblings.every(sibling => newChecked.includes(sibling));
+      const siblingsChecked = siblings.every(sibling => newCheckedValues.includes(sibling));
 
-      if (siblingsChecked && !newChecked.includes(parent)) {
-        newChecked.push(parent);
-      } else if (!siblingsChecked && newChecked.includes(parent)) {
-        newChecked.splice(newChecked.indexOf(parent), 1);
+      if (siblingsChecked && !newCheckedValues.includes(parent)) {
+        newCheckedValues.push(parent);
+      } else if (!siblingsChecked && newCheckedValues.includes(parent)) {
+        newCheckedValues.splice(newCheckedValues.indexOf(parent), 1);
       }
     }
-    return newChecked;
+    return newCheckedValues;
   };
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, nodeId: string) => {
-    const newChecked = toggleChecked(checked, nodeId);
-    onCheckedChange(newChecked);
+    const newCheckedValues = toggleChecked(checkedValues, nodeId);
+    onCheckedChange(newCheckedValues);
   };
 
   return (
@@ -89,7 +85,7 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
               nodeId={area}
               label={
                 <StyledTreeItemLabel>
-                  <Checkbox checked={checked.includes(area)} onChange={e => handleCheckboxChange(e, area)} />
+                  <Checkbox checked={checkedValues.includes(area)} onChange={e => handleCheckboxChange(e, area)} />
                   {area}
                 </StyledTreeItemLabel>
               }
@@ -104,7 +100,7 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
                       <StyledTreeItemLabel>
                         <Checkbox
                           size='small'
-                          checked={checked.includes(childNodeId)}
+                          checked={checkedValues.includes(childNodeId)}
                           onChange={e => handleCheckboxChange(e, childNodeId)}
                         />
                         {subArea}
@@ -120,3 +116,5 @@ export const FilterByArea: React.FC<FilterProps> = ({ deadlines, checked, onChec
     </div>
   );
 };
+
+export default FilterByArea;
