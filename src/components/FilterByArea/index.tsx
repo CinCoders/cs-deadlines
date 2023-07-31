@@ -1,22 +1,26 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import { DeadlineProps } from '../Conference';
 import Checkbox from '@mui/material/Checkbox';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { StyledTreeItemLabel } from './styles';
+
+interface FilterByAreaDeadlineProps {
+  greatArea: string;
+  subArea: string;
+}
 interface FilterProps {
-  deadlines: DeadlineProps[];
+  deadlines: FilterByAreaDeadlineProps[];
   checkedValues: string[];
   onCheckedChange: (checked: string[]) => void;
 }
 
-const FilterByArea: React.FC<FilterProps> = ({ deadlines, checkedValues, onCheckedChange }) => {
-  const createTreeData = (deadlines: DeadlineProps[]) => {
+function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps) {
+  const createTreeData = (deadlinesValue: FilterByAreaDeadlineProps[]) => {
     const treeData: { [key: string]: string[] } = {};
-    deadlines.forEach(deadline => {
+    deadlinesValue.forEach(deadline => {
       const { greatArea, subArea } = deadline;
       if (!treeData[greatArea]) {
         treeData[greatArea] = [];
@@ -77,43 +81,41 @@ const FilterByArea: React.FC<FilterProps> = ({ deadlines, checkedValues, onCheck
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
       >
-        {Object.keys(treeData).map(area => {
-          return (
-            <TreeItem
-              key={area}
-              nodeId={area}
-              label={
-                <StyledTreeItemLabel>
-                  <Checkbox checked={checkedValues.includes(area)} onChange={e => handleCheckboxChange(e, area)} />
-                  {area}
-                </StyledTreeItemLabel>
-              }
-            >
-              {treeData[area].map(subArea => {
-                const childNodeId = `${area}_${subArea}`;
-                return (
-                  <TreeItem
-                    key={childNodeId}
-                    nodeId={childNodeId}
-                    label={
-                      <StyledTreeItemLabel>
-                        <Checkbox
-                          size='small'
-                          checked={checkedValues.includes(childNodeId)}
-                          onChange={e => handleCheckboxChange(e, childNodeId)}
-                        />
-                        {subArea}
-                      </StyledTreeItemLabel>
-                    }
-                  />
-                );
-              })}
-            </TreeItem>
-          );
-        })}
+        {Object.keys(treeData).map(area => (
+          <TreeItem
+            key={area}
+            nodeId={area}
+            label={
+              <StyledTreeItemLabel>
+                <Checkbox checked={checkedValues.includes(area)} onChange={e => handleCheckboxChange(e, area)} />
+                {area}
+              </StyledTreeItemLabel>
+            }
+          >
+            {treeData[area].map(subArea => {
+              const childNodeId = `${area}_${subArea}`;
+              return (
+                <TreeItem
+                  key={childNodeId}
+                  nodeId={childNodeId}
+                  label={
+                    <StyledTreeItemLabel>
+                      <Checkbox
+                        size='small'
+                        checked={checkedValues.includes(childNodeId)}
+                        onChange={e => handleCheckboxChange(e, childNodeId)}
+                      />
+                      {subArea}
+                    </StyledTreeItemLabel>
+                  }
+                />
+              );
+            })}
+          </TreeItem>
+        ))}
       </TreeView>
     </div>
   );
-};
+}
 
 export default FilterByArea;

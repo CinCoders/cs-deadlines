@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/index';
 import ConferencePage from './components/ConferencePage';
 
-function Rotas() {
+function RoutesApp() {
   return (
     <BrowserRouter>
       <Routes>
@@ -19,4 +19,4 @@ function Rotas() {
   );
 }
 
-export default Rotas;
+export default RoutesApp;
