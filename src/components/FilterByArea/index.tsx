@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Typography } from '@mui/material';
 import { DeadlineProps } from '../Conference';
 import Checkbox from '@mui/material/Checkbox';
-
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
