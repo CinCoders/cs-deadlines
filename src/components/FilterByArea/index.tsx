@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Typography } from '@mui/material';
 import { DeadlineProps } from '../Conference';
 import Checkbox from '@mui/material/Checkbox';
