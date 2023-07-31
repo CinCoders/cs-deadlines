@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Countdown from 'react-countdown';
 
@@ -14,7 +13,8 @@ export interface DeadlineProps {
   deadlineDetails: string;
 }
 
-export const Conference: React.FC<DeadlineProps> = ({
+export function Conference({
+  deadlineId,
   conference,
   website,
   conferenceDetail,
@@ -23,7 +23,7 @@ export const Conference: React.FC<DeadlineProps> = ({
   location,
   submissionDeadline,
   deadlineDetails,
-}) => {
+}: DeadlineProps) {
   const renderCountdown = () => {
     const now = new Date();
     const timeDiff = submissionDeadline.getTime() - now.getTime();
@@ -36,19 +36,23 @@ export const Conference: React.FC<DeadlineProps> = ({
 
       return (
         <Typography variant='h5'>
-          {days} {days === 1 ? 'day' : 'days'}, {hours}
-          {'h'}, {minutes}
-          {'m'}, {seconds}
-          {'s'}
+          {days}
+          {days === 1 ? 'day, ' : 'days, '}
+          {hours}
+          {'h, '}
+          {minutes}
+          {'m, '}
+          {seconds}s
         </Typography>
       );
     }
 
-    return <Typography variant='body2'>A data limite de submissão já passou.</Typography>;
+    return <Typography variant='body2'>The submission deadline has passed.</Typography>;
   };
 
   return (
     <Box
+      id={deadlineId}
       display='flex'
       maxWidth='1200px'
       width='100%'
@@ -74,11 +78,11 @@ export const Conference: React.FC<DeadlineProps> = ({
         display='flex'
         alignItems='center'
         flexDirection='row'
-        minWidth='65%'
+        width='100%'
       >
-        <Stack width='50%'>
+        <Stack minWidth='50%'>
           <Typography variant='h5'>
-            <Link href={website} color={'inherit'} target='_blank'>
+            <Link href={website} color='inherit' target='_blank'>
               {conference}
             </Link>
           </Typography>
@@ -91,7 +95,7 @@ export const Conference: React.FC<DeadlineProps> = ({
             </Typography>
           </Stack>
         </Stack>
-        <Stack spacing={0.5} width='50%'>
+        <Stack spacing={0.5} minWidth='20%'>
           <Typography textAlign='end' variant='body1'>
             {conferenceDates}
           </Typography>
@@ -101,9 +105,7 @@ export const Conference: React.FC<DeadlineProps> = ({
             </Link>
           </Typography>
         </Stack>
-      </Stack>
-      <Stack spacing={0.5}>
-        <Stack display='flex' justifyContent='flex-end'>
+        <Stack display='flex' justifyContent='flex-end' minWidth='30%' paddingLeft='30px'>
           <Countdown date={submissionDeadline} renderer={renderCountdown} />
           <Typography color='#ff6961' fontWeight='bold'>
             {deadlineDetails}
@@ -112,6 +114,4 @@ export const Conference: React.FC<DeadlineProps> = ({
       </Stack>
     </Box>
   );
-};
-
-export default Conference;
+}

@@ -1,0 +1,58 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "globals": {
+    "JSX": "readonly"
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:jest/recommended",
+    "plugin:react/jsx-runtime",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 14,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier", "@typescript-eslint", "jest", "react-hooks", "import"],
+  "rules": {
+    "react/jsx-wrap-multilines": ["error", { "prop": "ignore" }],
+    "react/jsx-props-no-spreading": "off",
+    "object-curly-newline": ["off"],
+    "implicit-arrow-linebreak": ["off"],
+    "max-len": ["error", 120],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
+    "arrow-parens": ["error", "as-needed"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts", ".js"] }],
+    "import/prefer-default-export": "off",
+    "jsx-quotes": ["error", "prefer-single"],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "import/extensions": ["error", "ignorePackages", { "ts": "never", "tsx": "never" }],
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "react/prop-types": "warn",
+    "no-use-before-define": "warn",
+    "react/jsx-no-bind": "warn",
+    "indent": ["off", 2]
+  }
+}

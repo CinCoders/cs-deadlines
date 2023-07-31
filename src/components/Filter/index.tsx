@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import Conference, { DeadlineProps } from '../Conference';
-
 import { Box, Stack, Typography, TextField } from '@mui/material';
+import { Conference, DeadlineProps } from '../Conference';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
 }
 
-const FilterPage: React.FC<FilterProps> = ({ deadlines }) => {
+function FilterPage({ deadlines }: FilterProps) {
   const [filterText, setFilterText] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +19,7 @@ const FilterPage: React.FC<FilterProps> = ({ deadlines }) => {
     ),
   );
   return (
-    <Box width='100%' display='flex' flexDirection='column'>
+    <Box width='100%' height='100%' display='flex' flexDirection='column' flexGrow='1'>
       <TextField
         type='text'
         id='standard-basic'
@@ -31,13 +30,13 @@ const FilterPage: React.FC<FilterProps> = ({ deadlines }) => {
         placeholder='Type to filter'
       />
       <Stack marginTop='15px' spacing={2} display='flex' alignItems='center' width='100%'>
-        {filteredDeadlines.map(deadline => {
-          return <Conference key={deadline.deadlineId} {...deadline} />;
-        })}
+        {filteredDeadlines.map(deadline => (
+          <Conference key={deadline.deadlineId} {...deadline} />
+        ))}
         {filteredDeadlines.length === 0 && <Typography>No results, try again!</Typography>}
       </Stack>
     </Box>
   );
-};
+}
 
 export default FilterPage;

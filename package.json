@@ -1,6 +1,6 @@
 {
   "name": "cs-deadlines",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Deadlines from the Top Computer Science Conferences!",
   "license": "MIT",
   "private": true,
@@ -20,7 +20,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@cincoders/cinnamon": "^0.4.0",
+    "@cincoders/cinnamon": "^1.0.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.5",
@@ -28,11 +28,12 @@
     "react": "^18.1.0",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.1.0",
+    "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -41,7 +42,13 @@
     "@types/papaparse": "^5.3.7",
     "@types/react": "^18.1.0",
     "@types/react-dom": "^18.2.6",
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "eslint": "^8.46.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0",
+    "prettier-eslint": "^15.0.1",
+    "typescript": "^4.9.5"
   },
   "eslintConfig": {
     "extends": [

@@ -1,11 +1,11 @@
 import { CssBaseline } from '@mui/material';
-import Rotas from './routes';
+import RoutesApp from './routes';
 
 function App() {
   return (
     <>
       <CssBaseline />
-      <Rotas />
+      <RoutesApp />
     </>
   );
 }
