@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
 import { CircularProgress, Link, Typography } from '@mui/material';
-import { FilterByArea } from '../../components/FilterByArea';
+import FilterByArea from '../../components/FilterByArea';
 import styled from 'styled-components';
 
 const FilterContainer = styled.div`
