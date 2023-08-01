@@ -1,23 +1,10 @@
-import { CircularProgress, Link, Typography } from '@mui/material';
+import { Box, CircularProgress, Link, Typography } from '@mui/material';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
 import FilterByArea from '../../components/FilterByArea';
 import { FilterContainer, FilterByAreaContainer } from './styles';
-
-interface DeadlineProps {
-  deadlineId: string;
-  conference: string;
-  website: string;
-  conferenceDetail: string;
-  area: string;
-  conferenceDates: string;
-  location: string;
-  submissionDeadline: Date;
-  deadlineDetails: string;
-  subArea: string;
-  greatArea: string;
-}
+import { DeadlineProps } from '../../components/Conference';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -50,12 +37,11 @@ function Home() {
         const rawDeadlines: string[][] = results.data as string[][];
         const parsedDeadlines = rawDeadlines.map((deadline: string[]) => ({
           greatArea: deadline[rawDeadlines[0].indexOf('GreatArea')],
+          area: deadline[rawDeadlines[0].indexOf('Area')],
           deadlineId: deadline[rawDeadlines[0].indexOf('DeadlineId')],
           conference: deadline[rawDeadlines[0].indexOf('Conference')],
           website: deadline[rawDeadlines[0].indexOf('WebSite')],
           conferenceDetail: deadline[rawDeadlines[0].indexOf('ConferenceDetail')],
-          subArea: deadline[rawDeadlines[0].indexOf('Area')],
-          area: `${deadline[rawDeadlines[0].indexOf('GreatArea')]} - ${deadline[rawDeadlines[0].indexOf('Area')]}`,
           conferenceDates: deadline[rawDeadlines[0].indexOf('ConferenceDates')],
           location: deadline[rawDeadlines[0].indexOf('Location')],
           submissionDeadline: new Date(deadline[rawDeadlines[0].indexOf('DeadlineISO')]),
@@ -75,14 +61,18 @@ function Home() {
   };
 
   return (
-    <main>
+    <>
       <Typography variant='h6'>
         {'The top CS conferences are listed in '}
         <Link target='_blank' href='https://CSRankings.org'>
           CSRankings.org
         </Link>
       </Typography>
-      {loading && <CircularProgress />}
+      {loading && (
+        <Box display='flex' justifyContent='center' alignItems='center' flexGrow='1' width='100%'>
+          <CircularProgress />
+        </Box>
+      )}
       {!loading && (
         <FilterContainer>
           <FilterByAreaContainer>
@@ -92,7 +82,7 @@ function Home() {
           <FilterPage deadlines={deadlines} checkedValues={checkedValues} />
         </FilterContainer>
       )}
-    </main>
+    </>
   );
 }
 
