@@ -83,41 +83,43 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
         defaultExpandIcon={<ChevronRightIcon />}
       >
         {treeData.size > 0 &&
-          Array.from(treeData).map(([greatArea, areas]) => (
-            <TreeItem
-              key={greatArea}
-              nodeId={greatArea}
-              label={
-                <StyledTreeItemLabel>
-                  <Checkbox
-                    checked={checkedValues.includes(greatArea)}
-                    onChange={e => handleCheckboxChange(e, greatArea)}
-                  />
-                  {greatArea}
-                </StyledTreeItemLabel>
-              }
-            >
-              {areas.map(area => {
-                const childNodeId = `${greatArea}_${area}`;
-                return (
-                  <TreeItem
-                    key={childNodeId}
-                    nodeId={childNodeId}
-                    label={
-                      <StyledTreeItemLabel>
-                        <Checkbox
-                          size='small'
-                          checked={checkedValues.includes(childNodeId)}
-                          onChange={e => handleCheckboxChange(e, childNodeId)}
-                        />
-                        {area}
-                      </StyledTreeItemLabel>
-                    }
-                  />
-                );
-              })}
-            </TreeItem>
-          ))}
+          Array.from(treeData)
+            .sort((a, b) => a[0].localeCompare(b[0]))
+            .map(([greatArea, areas]) => (
+              <TreeItem
+                key={greatArea}
+                nodeId={greatArea}
+                label={
+                  <StyledTreeItemLabel>
+                    <Checkbox
+                      checked={checkedValues.includes(greatArea)}
+                      onChange={e => handleCheckboxChange(e, greatArea)}
+                    />
+                    {greatArea}
+                  </StyledTreeItemLabel>
+                }
+              >
+                {areas.map(area => {
+                  const childNodeId = `${greatArea}_${area}`;
+                  return (
+                    <TreeItem
+                      key={childNodeId}
+                      nodeId={childNodeId}
+                      label={
+                        <StyledTreeItemLabel>
+                          <Checkbox
+                            size='small'
+                            checked={checkedValues.includes(childNodeId)}
+                            onChange={e => handleCheckboxChange(e, childNodeId)}
+                          />
+                          {area}
+                        </StyledTreeItemLabel>
+                      }
+                    />
+                  );
+                })}
+              </TreeItem>
+            ))}
       </TreeView>
     </div>
   );
