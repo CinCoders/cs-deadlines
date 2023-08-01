@@ -6,6 +6,7 @@ export interface DeadlineProps {
   conference: string;
   website: string;
   conferenceDetail: string;
+  greatArea: string;
   area: string;
   conferenceDates: string;
   location: string;
@@ -18,6 +19,7 @@ export function Conference({
   conference,
   website,
   conferenceDetail,
+  greatArea,
   area,
   conferenceDates,
   location,
@@ -91,7 +93,7 @@ export function Conference({
               {conferenceDetail}
             </Typography>
             <Typography variant='body2' fontWeight='bold'>
-              {area}
+              {`${greatArea} - ${area}`}
             </Typography>
           </Stack>
         </Stack>

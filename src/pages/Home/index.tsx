@@ -1,8 +1,10 @@
 import { Box, CircularProgress, Link, Typography } from '@mui/material';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
-import { DeadlineProps } from '../../components/Conference';
 import FilterPage from '../../components/Filter';
+import FilterByArea from '../../components/FilterByArea';
+import { FilterContainer, FilterByAreaContainer } from './styles';
+import { DeadlineProps } from '../../components/Conference';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -23,6 +25,7 @@ function compare(a: DeadlineProps, b: DeadlineProps) {
 function Home() {
   const [deadlines, setDeadlines] = useState<DeadlineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [checkedValues, setCheckedValues] = useState<string[]>([]);
 
   useEffect(() => {
     const sheetUrl =
@@ -33,11 +36,12 @@ function Home() {
       complete(results) {
         const rawDeadlines: string[][] = results.data as string[][];
         const parsedDeadlines = rawDeadlines.map((deadline: string[]) => ({
+          greatArea: deadline[rawDeadlines[0].indexOf('GreatArea')],
+          area: deadline[rawDeadlines[0].indexOf('Area')],
           deadlineId: deadline[rawDeadlines[0].indexOf('DeadlineId')],
           conference: deadline[rawDeadlines[0].indexOf('Conference')],
           website: deadline[rawDeadlines[0].indexOf('WebSite')],
           conferenceDetail: deadline[rawDeadlines[0].indexOf('ConferenceDetail')],
-          area: `${deadline[rawDeadlines[0].indexOf('GreatArea')]} - ${deadline[rawDeadlines[0].indexOf('Area')]}`,
           conferenceDates: deadline[rawDeadlines[0].indexOf('ConferenceDates')],
           location: deadline[rawDeadlines[0].indexOf('Location')],
           submissionDeadline: new Date(deadline[rawDeadlines[0].indexOf('DeadlineISO')]),
@@ -52,6 +56,10 @@ function Home() {
     });
   }, []);
 
+  const handleCheckedChange = (checkedChangedValues: string[]) => {
+    setCheckedValues(checkedChangedValues);
+  };
+
   return (
     <>
       <Typography variant='h6'>
@@ -65,7 +73,15 @@ function Home() {
           <CircularProgress />
         </Box>
       )}
-      {!loading && <FilterPage deadlines={deadlines} />}
+      {!loading && (
+        <FilterContainer>
+          <FilterByAreaContainer>
+            <FilterByArea deadlines={deadlines} checkedValues={checkedValues} onCheckedChange={handleCheckedChange} />
+          </FilterByAreaContainer>
+
+          <FilterPage deadlines={deadlines} checkedValues={checkedValues} />
+        </FilterContainer>
+      )}
     </>
   );
 }

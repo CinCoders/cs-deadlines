@@ -4,20 +4,29 @@ import { Conference, DeadlineProps } from '../Conference';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
+  checkedValues: string[];
 }
 
-function FilterPage({ deadlines }: FilterProps) {
+function FilterPage({ deadlines, checkedValues }: FilterProps) {
   const [filterText, setFilterText] = useState('');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
   };
 
-  const filteredDeadlines: DeadlineProps[] = deadlines.filter(deadline =>
+  const getCheckedAreaNames = (): string[] => checkedValues.map(nodeId => nodeId.split('_')[1]);
+
+  const filteredDeadlinesByText: DeadlineProps[] = deadlines.filter(deadline =>
     Object.values(deadline).some(
       value => typeof value === 'string' && value.toLowerCase().includes(filterText.toLowerCase()),
     ),
   );
+
+  const filteredDeadlines: DeadlineProps[] =
+    checkedValues.length > 0
+      ? filteredDeadlinesByText.filter(deadline => getCheckedAreaNames().includes(deadline.area))
+      : filteredDeadlinesByText;
+
   return (
     <Box width='100%' height='100%' display='flex' flexDirection='column' flexGrow='1'>
       <TextField
