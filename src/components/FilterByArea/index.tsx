@@ -9,7 +9,7 @@ import { StyledTreeItemLabel } from './styles';
 
 interface FilterByAreaDeadlineProps {
   greatArea: string;
-  subArea: string;
+  area: string;
 }
 interface FilterProps {
   deadlines: FilterByAreaDeadlineProps[];
@@ -19,14 +19,14 @@ interface FilterProps {
 
 function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps) {
   const createTreeData = (deadlinesValue: FilterByAreaDeadlineProps[]) => {
-    const treeData: { [key: string]: string[] } = {};
+    const treeData = new Map<string, string[]>();
     deadlinesValue.forEach(deadline => {
-      const { greatArea, subArea } = deadline;
-      if (!treeData[greatArea]) {
-        treeData[greatArea] = [];
+      const { greatArea, area } = deadline;
+      if (!treeData.has(greatArea)) {
+        treeData.set(greatArea, []);
       }
-      if (!treeData[greatArea].includes(subArea)) {
-        treeData[greatArea].push(subArea);
+      if (!treeData.get(greatArea)?.includes(area)) {
+        treeData.get(greatArea)?.push(area);
       }
     });
     return treeData;
@@ -42,8 +42,8 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
       newCheckedValues.splice(currentIndex, 1);
     }
 
-    if (nodeId in treeData) {
-      treeData[nodeId].forEach(subarea => {
+    if (treeData.has(nodeId)) {
+      treeData.get(nodeId)?.forEach(subarea => {
         const childNodeId = `${nodeId}_${subarea}`;
         if (!newCheckedValues.includes(childNodeId) && newCheckedValues.includes(nodeId)) {
           newCheckedValues.push(childNodeId);
@@ -57,8 +57,8 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
     const parentIndex = nodeId.lastIndexOf('_');
     if (parentIndex !== -1) {
       const parent = nodeId.substring(0, parentIndex);
-      const siblings = treeData[parent];
-      const siblingsChecked = siblings.every(sibling => newCheckedValues.includes(sibling));
+      const siblings = treeData.get(parent);
+      const siblingsChecked = siblings?.every(sibling => newCheckedValues.includes(sibling));
 
       if (siblingsChecked && !newCheckedValues.includes(parent)) {
         newCheckedValues.push(parent);
@@ -68,6 +68,7 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
     }
     return newCheckedValues;
   };
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>, nodeId: string) => {
     const newCheckedValues = toggleChecked(checkedValues, nodeId);
     onCheckedChange(newCheckedValues);
@@ -81,38 +82,42 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
       >
-        {Object.keys(treeData).map(area => (
-          <TreeItem
-            key={area}
-            nodeId={area}
-            label={
-              <StyledTreeItemLabel>
-                <Checkbox checked={checkedValues.includes(area)} onChange={e => handleCheckboxChange(e, area)} />
-                {area}
-              </StyledTreeItemLabel>
-            }
-          >
-            {treeData[area].map(subArea => {
-              const childNodeId = `${area}_${subArea}`;
-              return (
-                <TreeItem
-                  key={childNodeId}
-                  nodeId={childNodeId}
-                  label={
-                    <StyledTreeItemLabel>
-                      <Checkbox
-                        size='small'
-                        checked={checkedValues.includes(childNodeId)}
-                        onChange={e => handleCheckboxChange(e, childNodeId)}
-                      />
-                      {subArea}
-                    </StyledTreeItemLabel>
-                  }
-                />
-              );
-            })}
-          </TreeItem>
-        ))}
+        {treeData.size > 0 &&
+          Array.from(treeData).map(([greatArea, areas]) => (
+            <TreeItem
+              key={greatArea}
+              nodeId={greatArea}
+              label={
+                <StyledTreeItemLabel>
+                  <Checkbox
+                    checked={checkedValues.includes(greatArea)}
+                    onChange={e => handleCheckboxChange(e, greatArea)}
+                  />
+                  {greatArea}
+                </StyledTreeItemLabel>
+              }
+            >
+              {areas.map(area => {
+                const childNodeId = `${greatArea}_${area}`;
+                return (
+                  <TreeItem
+                    key={childNodeId}
+                    nodeId={childNodeId}
+                    label={
+                      <StyledTreeItemLabel>
+                        <Checkbox
+                          size='small'
+                          checked={checkedValues.includes(childNodeId)}
+                          onChange={e => handleCheckboxChange(e, childNodeId)}
+                        />
+                        {area}
+                      </StyledTreeItemLabel>
+                    }
+                  />
+                );
+              })}
+            </TreeItem>
+          ))}
       </TreeView>
     </div>
   );

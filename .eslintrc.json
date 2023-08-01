@@ -32,6 +32,7 @@
   "rules": {
     "react/jsx-wrap-multilines": ["error", { "prop": "ignore" }],
     "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
     "object-curly-newline": ["off"],
     "implicit-arrow-linebreak": ["off"],
     "max-len": ["error", 120],

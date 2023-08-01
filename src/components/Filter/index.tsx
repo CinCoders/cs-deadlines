@@ -1,21 +1,9 @@
 import React, { useState } from 'react';
 import { Box, Stack, Typography, TextField } from '@mui/material';
-import { Conference } from '../Conference';
+import { Conference, DeadlineProps } from '../Conference';
 
-interface FilterDeadlineProps {
-  deadlineId: string;
-  conference: string;
-  website: string;
-  conferenceDetail: string;
-  area: string;
-  conferenceDates: string;
-  location: string;
-  submissionDeadline: Date;
-  deadlineDetails: string;
-  subArea: string;
-}
 interface FilterProps {
-  deadlines: FilterDeadlineProps[];
+  deadlines: DeadlineProps[];
   checkedValues: string[];
 }
 
@@ -28,15 +16,15 @@ function FilterPage({ deadlines, checkedValues }: FilterProps) {
 
   const getCheckedAreaNames = (): string[] => checkedValues.map(nodeId => nodeId.split('_')[1]);
 
-  const filteredDeadlinesByText: FilterDeadlineProps[] = deadlines.filter(deadline =>
+  const filteredDeadlinesByText: DeadlineProps[] = deadlines.filter(deadline =>
     Object.values(deadline).some(
       value => typeof value === 'string' && value.toLowerCase().includes(filterText.toLowerCase()),
     ),
   );
 
-  const filteredDeadlines: FilterDeadlineProps[] =
+  const filteredDeadlines: DeadlineProps[] =
     checkedValues.length > 0
-      ? filteredDeadlinesByText.filter(deadline => getCheckedAreaNames().includes(deadline.subArea))
+      ? filteredDeadlinesByText.filter(deadline => getCheckedAreaNames().includes(deadline.area))
       : filteredDeadlinesByText;
 
   return (

@@ -1,11 +1,12 @@
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Countdown from 'react-countdown';
 
-interface ConferenceDeadlineProps {
+export interface DeadlineProps {
   deadlineId: string;
   conference: string;
   website: string;
   conferenceDetail: string;
+  greatArea: string;
   area: string;
   conferenceDates: string;
   location: string;
@@ -18,12 +19,13 @@ export function Conference({
   conference,
   website,
   conferenceDetail,
+  greatArea,
   area,
   conferenceDates,
   location,
   submissionDeadline,
   deadlineDetails,
-}: ConferenceDeadlineProps) {
+}: DeadlineProps) {
   const renderCountdown = () => {
     const now = new Date();
     const timeDiff = submissionDeadline.getTime() - now.getTime();
@@ -91,7 +93,7 @@ export function Conference({
               {conferenceDetail}
             </Typography>
             <Typography variant='body2' fontWeight='bold'>
-              {area}
+              {`${greatArea} - ${area}`}
             </Typography>
           </Stack>
         </Stack>
