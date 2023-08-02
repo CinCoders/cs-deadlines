@@ -1,11 +1,13 @@
 import { styled } from '@mui/material';
 
 export const FilterContainer = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-  flexGrow: 1,
-  marginTop: '20px',
-  width: '100%',
+  '@media (min-width: 900px)': {
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: 1,
+    marginTop: '20px',
+    width: '100%',
+  },
 });
 
 export const FilterByAreaContainer = styled('div')({
