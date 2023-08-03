@@ -8,7 +8,6 @@ import TreeItem from '@mui/lab/TreeItem';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
-// import useMediaQuery from '@mui/material/useMediaQuery';
 import { StyledTreeItemLabel } from './styles';
 
 interface FilterByAreaDeadlineProps {
@@ -23,6 +22,7 @@ interface FilterProps {
 
 function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps) {
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string[]>([]);
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -84,11 +84,25 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
     onCheckedChange(newCheckedValues);
   };
 
+  const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
+    if (event.target instanceof HTMLInputElement && event.target.type === 'checkbox') {
+      return;
+    }
+    if (!expanded.includes(nodeIds[0])) {
+      setExpanded(nodeIds);
+    } else {
+      setExpanded(expanded.filter(nodeId => nodeIds.includes(nodeId)));
+    }
+  };
+
   const filterTree = () => (
     <TreeView
       aria-label='area-navigation system'
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
+      multiSelect
+      expanded={expanded}
+      onNodeToggle={handleToggle}
     >
       {treeData.size > 0 &&
         Array.from(treeData)
@@ -133,7 +147,7 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
 
   return (
     <div>
-      <Box display={{ sm: 'block', md: 'none' }} marginBottom='0.5rem'>
+      <Box display={{ xs: 'block', md: 'none' }} marginBottom='0.5rem'>
         <Button onClick={toggleDrawer}>
           <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
         </Button>
@@ -149,7 +163,7 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
 
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>
         <Typography variant='h6' display='flex' alignItems='center'>
-          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filter by Areas
+          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filter by Area
         </Typography>
         {filterTree()}
       </Box>
