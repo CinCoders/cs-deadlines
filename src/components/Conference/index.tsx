@@ -1,5 +1,6 @@
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Countdown from 'react-countdown';
+import { StyledDeadlineTypography, StyledTimeTypography } from './styles';
 
 export interface DeadlineProps {
   deadlineId: string;
@@ -37,7 +38,7 @@ export function Conference({
       const seconds = Math.floor((timeDiff / 1000) % 60);
 
       return (
-        <Typography variant='h5'>
+        <StyledTimeTypography variant='h5'>
           {days}
           {days === 1 ? 'day, ' : 'days, '}
           {hours}
@@ -45,7 +46,7 @@ export function Conference({
           {minutes}
           {'m, '}
           {seconds}s
-        </Typography>
+        </StyledTimeTypography>
       );
     }
 
@@ -109,9 +110,9 @@ export function Conference({
         </Stack>
         <Stack display='flex' justifyContent='flex-end' minWidth='30%' paddingLeft='30px'>
           <Countdown date={submissionDeadline} renderer={renderCountdown} />
-          <Typography color='#ff6961' fontWeight='bold'>
+          <StyledDeadlineTypography color='#ff6961' fontWeight='bold'>
             {deadlineDetails}
-          </Typography>
+          </StyledDeadlineTypography>
         </Stack>
       </Stack>
     </Box>

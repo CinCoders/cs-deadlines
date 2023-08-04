@@ -9,7 +9,7 @@ export default function ConferencePage({ children }: PageProps) {
   return (
     <Page
       navbar={{
-        title: 'Top CS Conference Deadlines',
+        title: 'Deadlines',
         hiddenUser: true,
         isLandingPage: true,
         logoSrc: logoCin,
