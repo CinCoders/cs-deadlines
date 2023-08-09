@@ -1,10 +1,13 @@
-import React from 'react';
-import { Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
 import { StyledTreeItemLabel } from './styles';
 
 interface FilterByAreaDeadlineProps {
@@ -18,6 +21,13 @@ interface FilterProps {
 }
 
 function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps) {
+  const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<string[]>([]);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   const createTreeData = (deadlinesValue: FilterByAreaDeadlineProps[]) => {
     const treeData = new Map<string, string[]>();
     deadlinesValue.forEach(deadline => {
@@ -74,25 +84,43 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
     onCheckedChange(newCheckedValues);
   };
 
-  return (
-    <div>
-      <Typography variant='h6'>Filter by Areas</Typography>
-      <TreeView
-        aria-label='area-navigation system'
-        defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ChevronRightIcon />}
-      >
-        {treeData.size > 0 &&
-          Array.from(treeData)
-            .sort((a, b) => a[0].localeCompare(b[0]))
-            .map(([greatArea, areas]) => (
+  const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
+    if (event.target instanceof HTMLInputElement && event.target.type === 'checkbox') {
+      return;
+    }
+    if (!expanded.includes(nodeIds[0])) {
+      setExpanded(nodeIds);
+    } else {
+      setExpanded(expanded.filter(nodeId => nodeIds.includes(nodeId)));
+    }
+  };
+
+  const filterTree = () => (
+    <TreeView
+      aria-label='area-navigation system'
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}
+      multiSelect
+      expanded={expanded}
+      onNodeToggle={handleToggle}
+    >
+      {treeData.size > 0 &&
+        Array.from(treeData)
+          .sort((a, b) => a[0].localeCompare(b[0]))
+          .map(([greatArea, areas]) => {
+            const parentChecked = areas.every(area => checkedValues.includes(`${greatArea}_${area}`));
+            const parentIndeterminate =
+              areas.some(area => checkedValues.includes(`${greatArea}_${area}`)) && !parentChecked;
+
+            return (
               <TreeItem
                 key={greatArea}
                 nodeId={greatArea}
                 label={
                   <StyledTreeItemLabel>
                     <Checkbox
-                      checked={checkedValues.includes(greatArea)}
+                      checked={parentChecked}
+                      indeterminate={parentIndeterminate}
                       onChange={e => handleCheckboxChange(e, greatArea)}
                     />
                     {greatArea}
@@ -119,8 +147,33 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
                   );
                 })}
               </TreeItem>
-            ))}
-      </TreeView>
+            );
+          })}
+    </TreeView>
+  );
+
+  return (
+    <div>
+      <Box display={{ xs: 'block', md: 'none' }} marginBottom='0.5rem' justifyContent='center'>
+        <Button onClick={toggleDrawer}>
+          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
+        </Button>
+        <Drawer anchor='left' open={open} onClose={toggleDrawer}>
+          <Box role='presentation' onKeyDown={toggleDrawer} margin='1rem'>
+            <Typography variant='h6' display='flex' alignItems='center'>
+              Filter by Area
+            </Typography>
+            {filterTree()}
+          </Box>
+        </Drawer>
+      </Box>
+
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Typography variant='h6' display='flex' alignItems='center'>
+          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filter by Area
+        </Typography>
+        {filterTree()}
+      </Box>
     </div>
   );
 }
