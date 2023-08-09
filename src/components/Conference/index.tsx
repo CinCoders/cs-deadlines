@@ -110,9 +110,7 @@ export function Conference({
         </Stack>
         <Stack display='flex' justifyContent='flex-end' minWidth='30%' paddingLeft='30px'>
           <Countdown date={submissionDeadline} renderer={renderCountdown} />
-          <StyledDeadlineTypography color='#ff6961' fontWeight='bold'>
-            {deadlineDetails}
-          </StyledDeadlineTypography>
+          <StyledDeadlineTypography>{deadlineDetails}</StyledDeadlineTypography>
         </Stack>
       </Stack>
     </Box>
