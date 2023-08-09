@@ -121,6 +121,7 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
                     <Checkbox
                       checked={parentChecked}
                       indeterminate={parentIndeterminate}
+                      disableRipple
                       onChange={e => handleCheckboxChange(e, greatArea)}
                     />
                     {greatArea}

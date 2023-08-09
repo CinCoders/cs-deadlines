@@ -12,7 +12,6 @@ export const FilterContainer = styled('div')({
 
 export const FilterByAreaContainer = styled('div')({
   display: 'flex',
-  justifyContent: 'center',
   width: '100%',
   '@media (min-width: 900px)': {
     width: '20%',
