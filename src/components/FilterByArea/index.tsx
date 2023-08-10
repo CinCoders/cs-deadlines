@@ -155,8 +155,8 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
   return (
     <div>
       <Box display={{ xs: 'block', md: 'none' }} marginBottom='0.5rem' justifyContent='center'>
-        <Button onClick={toggleDrawer}>
-          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
+        <Button onClick={toggleDrawer} sx={{ width: '' }}>
+          <FilterListIcon />
         </Button>
         <Drawer anchor='left' open={open} onClose={toggleDrawer}>
           <Box role='presentation' onKeyDown={toggleDrawer} margin='1rem'>

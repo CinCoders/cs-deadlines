@@ -78,7 +78,6 @@ function Home() {
           <FilterByAreaContainer>
             <FilterByArea deadlines={deadlines} checkedValues={checkedValues} onCheckedChange={handleCheckedChange} />
           </FilterByAreaContainer>
-
           <FilterPage deadlines={deadlines} checkedValues={checkedValues} />
         </FilterContainer>
       )}
