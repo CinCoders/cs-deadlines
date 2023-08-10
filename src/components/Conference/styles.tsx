@@ -1,7 +1,7 @@
 import { Link, styled, Typography } from '@mui/material';
 
 export const StyledTimeTypography = styled(Typography)({
-  fontSize: '1.2rem',
+  fontSize: '1rem',
   fontWeight: 'bold',
   '@media (min-width: 900px)': {
     fontSize: '1.5rem',

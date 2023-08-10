@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
 import FilterByArea from '../../components/FilterByArea';
-import { FilterContainer, FilterByAreaContainer } from './styles';
+import { FilterContainer, FilterByAreaContainer, TextContainer } from './styles';
 import { DeadlineProps } from '../../components/Conference';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
@@ -62,12 +62,14 @@ function Home() {
 
   return (
     <>
-      <Typography variant='h6'>
-        {'The top CS conferences are listed in '}
-        <Link target='_blank' href='https://CSRankings.org'>
-          CSRankings.org
-        </Link>
-      </Typography>
+      <TextContainer>
+        <Typography variant='h6'>
+          {'The top CS conferences are listed in '}
+          <Link target='_blank' href='https://CSRankings.org'>
+            CSRankings.org
+          </Link>
+        </Typography>
+      </TextContainer>
       {loading && (
         <Box display='flex' justifyContent='center' alignItems='center' flexGrow='1' width='100%'>
           <CircularProgress />

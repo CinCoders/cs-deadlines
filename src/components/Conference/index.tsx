@@ -6,7 +6,6 @@ import {
   StyledTimeTypography,
   StyledDatesTypography,
   StyledLocationLink,
-  // StyledLocationTypography,
 } from './styles';
 
 export interface DeadlineProps {
