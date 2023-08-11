@@ -2,7 +2,6 @@ import { Box, CircularProgress, Link, Typography } from '@mui/material';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
-// import FilterByArea from '../../components/FilterByArea';
 import { FilterContainer, TextContainer } from './styles';
 import { DeadlineProps } from '../../components/Conference';
 

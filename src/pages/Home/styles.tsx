@@ -10,17 +10,6 @@ export const FilterContainer = styled('div')({
   },
 });
 
-export const FilterByAreaContainer = styled('div')({
-  display: 'flex',
-  justifyContent: 'center',
-  width: '100%',
-  '@media (min-width: 900px)': {
-    width: '20%',
-    justifyContent: 'flex-start',
-    marginRight: '20px',
-  },
-});
-
 export const TextContainer = styled('div')({
   textAlign: 'center',
 });
