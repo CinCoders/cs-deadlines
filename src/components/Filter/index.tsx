@@ -66,7 +66,9 @@ function FilterPage({ deadlines }: FilterProps) {
           },
         }}
       />
-
+      <Typography variant='body1' display='flex' alignItems='center'>
+        Filter by Area
+      </Typography>
       <FilterByArea deadlines={deadlines} checkedValues={checkedValues} onCheckedChange={handleCheckedChange} />
     </Box>
   );
