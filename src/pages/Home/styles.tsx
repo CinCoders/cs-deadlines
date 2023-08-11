@@ -11,5 +11,7 @@ export const FilterContainer = styled('div')({
 });
 
 export const TextContainer = styled('div')({
-  textAlign: 'center',
+  // textAlign: 'center',
+  width: '100%',
+  display: 'flex',
 });

@@ -73,7 +73,7 @@ function FilterPage({ deadlines }: FilterProps) {
 
   return (
     <Box width='100%' height='100%' display='flex' flexDirection='column' flexGrow='1'>
-      <Box display={{ xs: 'block', md: 'none' }} marginBottom='0.5rem' justifyContent='center'>
+      <Box display={{ xs: 'block', md: 'none' }} marginTop='0.5rem' justifyContent='center'>
         <Button onClick={toggleDrawer}>
           <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
         </Button>

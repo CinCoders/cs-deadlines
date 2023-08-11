@@ -2,7 +2,7 @@ import { Box, CircularProgress, Link, Typography } from '@mui/material';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
-import { FilterContainer, TextContainer } from './styles';
+import { FilterContainer } from './styles';
 import { DeadlineProps } from '../../components/Conference';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
@@ -56,14 +56,14 @@ function Home() {
 
   return (
     <>
-      <TextContainer>
-        <Typography variant='h6'>
-          {'The top CS conferences are listed in '}
-          <Link target='_blank' href='https://CSRankings.org'>
-            CSRankings.org
-          </Link>
-        </Typography>
-      </TextContainer>
+      {/* <TextContainer> */}
+      <Typography variant='h6'>
+        {'The top CS conferences are listed in '}
+        <Link target='_blank' href='https://CSRankings.org'>
+          CSRankings.org
+        </Link>
+      </Typography>
+      {/* </TextContainer> */}
       {loading && (
         <Box display='flex' justifyContent='center' alignItems='center' flexGrow='1' width='100%'>
           <CircularProgress />
