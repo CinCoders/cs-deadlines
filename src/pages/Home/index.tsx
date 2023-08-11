@@ -2,8 +2,8 @@ import { Box, CircularProgress, Link, Typography } from '@mui/material';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
-import FilterByArea from '../../components/FilterByArea';
-import { FilterContainer, FilterByAreaContainer, TextContainer } from './styles';
+// import FilterByArea from '../../components/FilterByArea';
+import { FilterContainer, TextContainer } from './styles';
 import { DeadlineProps } from '../../components/Conference';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
@@ -25,7 +25,6 @@ function compare(a: DeadlineProps, b: DeadlineProps) {
 function Home() {
   const [deadlines, setDeadlines] = useState<DeadlineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [checkedValues, setCheckedValues] = useState<string[]>([]);
 
   useEffect(() => {
     const sheetUrl =
@@ -56,10 +55,6 @@ function Home() {
     });
   }, []);
 
-  const handleCheckedChange = (checkedChangedValues: string[]) => {
-    setCheckedValues(checkedChangedValues);
-  };
-
   return (
     <>
       <TextContainer>
@@ -77,10 +72,7 @@ function Home() {
       )}
       {!loading && (
         <FilterContainer>
-          <FilterByAreaContainer>
-            <FilterByArea deadlines={deadlines} checkedValues={checkedValues} onCheckedChange={handleCheckedChange} />
-          </FilterByAreaContainer>
-          <FilterPage deadlines={deadlines} checkedValues={checkedValues} />
+          <FilterPage deadlines={deadlines} />
         </FilterContainer>
       )}
     </>

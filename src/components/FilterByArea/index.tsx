@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+// import { Box, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
+// import FilterListIcon from '@mui/icons-material/FilterList';
+// import Drawer from '@mui/material/Drawer';
+// import Button from '@mui/material/Button';
 import { StyledTreeItemLabel } from './styles';
 
 interface FilterByAreaDeadlineProps {
@@ -21,12 +21,12 @@ interface FilterProps {
 }
 
 function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps) {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string[]>([]);
 
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  // const toggleDrawer = () => {
+  //   setOpen(!open);
+  // };
 
   const createTreeData = (deadlinesValue: FilterByAreaDeadlineProps[]) => {
     const treeData = new Map<string, string[]>();
@@ -154,7 +154,7 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
 
   return (
     <div>
-      <Box display={{ xs: 'block', md: 'none' }} marginBottom='0.5rem' justifyContent='center'>
+      {/* <Box display={{ xs: 'block', md: 'none' }} marginBottom='0.5rem' justifyContent='center'>
         <Button onClick={toggleDrawer}>
           <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
         </Button>
@@ -173,7 +173,8 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
           <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filter by Area
         </Typography>
         {filterTree()}
-      </Box>
+      </Box> */}
+      {filterTree()}
     </div>
   );
 }
