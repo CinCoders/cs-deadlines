@@ -10,13 +10,15 @@ interface PageProps {
 export default function ConferencePage({ children }: PageProps) {
   const [logoSrc, setLogoSrc] = useState(window.innerWidth >= 900 ? logoCin : logoCinSmall);
   const [title, setTitle] = useState(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
-
+  // const navbar = useNavbar();
   useEffect(() => {
     const handleResize = () => {
       setLogoSrc(window.innerWidth >= 900 ? logoCin : logoCinSmall);
       setTitle(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
     };
-    handleResize();
+    // if (navbar) {
+    //   navbar.setTitle(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
+    // }
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -26,9 +28,10 @@ export default function ConferencePage({ children }: PageProps) {
   return (
     <Page
       navbar={{
+        // ...navbar,
         title,
-        hiddenUser: true,
         isLandingPage: true,
+        hiddenUser: true,
         logoSrc,
       }}
       footer={{
