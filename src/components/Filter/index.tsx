@@ -44,6 +44,7 @@ function FilterPage({ deadlines }: FilterProps) {
         id='standard-basic'
         variant='outlined'
         value={filterText}
+        fullWidth
         onChange={handleInputChange}
         onKeyDown={e => {
           e.stopPropagation();
@@ -64,8 +65,14 @@ function FilterPage({ deadlines }: FilterProps) {
             minHeight: '36px',
             fontSize: '14px',
           },
+          inputProps: {
+            style: {
+              padding: '6px 0', // Adjust vertical padding for better alignment
+            },
+          },
         }}
       />
+
       <Typography variant='body1' display='flex' alignItems='center'>
         Filter by Area
       </Typography>

@@ -89,8 +89,8 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
   return (
     <TreeView
       aria-label='area-navigation system'
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
+      defaultCollapseIcon={<ExpandMoreIcon sx={{ margin: '6px' }} />}
+      defaultExpandIcon={<ChevronRightIcon sx={{ margin: '6px' }} />}
       multiSelect
       expanded={expanded}
       onNodeToggle={handleToggle}
