@@ -32,7 +32,6 @@ export default function ConferencePage({ children }: PageProps) {
         copyrightText: 'CIn UFPE | Todos os direitos reservados',
         largeFooter: false,
       }}
-      centralized
       haveToast={false}
       createNavbarContext
     >
