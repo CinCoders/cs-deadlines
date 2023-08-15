@@ -85,8 +85,8 @@ function FilterPage({ deadlines }: FilterProps) {
           </Box>
         </Drawer>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' } }}>
-        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+      <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }}>
+        <Box display={{ xs: 'none', md: 'block' }} width='300px'>
           <Typography variant='h6' display='flex' alignItems='center'>
             <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
           </Typography>

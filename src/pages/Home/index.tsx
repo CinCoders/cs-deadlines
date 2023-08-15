@@ -54,7 +54,16 @@ function Home() {
         setLoading(false);
       },
     });
-    navbar?.setTitle(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      navbar?.setTitle(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [navbar]);
 
   return (
