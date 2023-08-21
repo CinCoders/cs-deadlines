@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Link, Typography } from '@mui/material';
 import Papa from 'papaparse';
 import { useEffect, useState } from 'react';
-import { useNavbar } from '@cincoders/cinnamon';
 import FilterPage from '../../components/Filter';
 import { FilterContainer, TextContainer } from './styles';
 import { DeadlineProps } from '../../components/Conference';
@@ -25,7 +24,6 @@ function compare(a: DeadlineProps, b: DeadlineProps) {
 function Home() {
   const [deadlines, setDeadlines] = useState<DeadlineProps[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const navbar = useNavbar();
 
   useEffect(() => {
     const sheetUrl =
@@ -55,16 +53,6 @@ function Home() {
       },
     });
   }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      navbar?.setTitle(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [navbar]);
 
   return (
     <>

@@ -9,10 +9,12 @@ interface PageProps {
 
 export default function ConferencePage({ children }: PageProps) {
   const [logoSrc, setLogoSrc] = useState(window.innerWidth >= 900 ? logoCin : logoCinSmall);
+  const [title, setTitle] = useState(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
 
   useEffect(() => {
     const handleResize = () => {
       setLogoSrc(window.innerWidth >= 900 ? logoCin : logoCinSmall);
+      setTitle(window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines');
     };
     window.addEventListener('resize', handleResize);
     return () => {
@@ -23,7 +25,7 @@ export default function ConferencePage({ children }: PageProps) {
   return (
     <Page
       navbar={{
-        title: window.innerWidth >= 900 ? 'Top CS Conference Deadlines' : 'Conference Deadlines',
+        title,
         isLandingPage: true,
         hiddenUser: true,
         logoSrc,
@@ -33,7 +35,7 @@ export default function ConferencePage({ children }: PageProps) {
         largeFooter: false,
       }}
       haveToast={false}
-      createNavbarContext
+      createNavbarContext={false}
     >
       {children}
     </Page>
