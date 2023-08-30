@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
-import { Box, Stack, Typography, TextField } from '@mui/material';
+import { Box, Stack, Typography, TextField, Drawer, Button, InputAdornment } from '@mui/material';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import SearchIcon from '@mui/icons-material/Search';
 import { Conference, DeadlineProps } from '../Conference';
+import FilterByArea from '../FilterByArea';
 
 interface FilterProps {
   deadlines: DeadlineProps[];
-  checkedValues: string[];
 }
 
-function FilterPage({ deadlines, checkedValues }: FilterProps) {
+function FilterPage({ deadlines }: FilterProps) {
+  const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [filterText, setFilterText] = useState('');
+  const [open, setOpen] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
   };
-
+  const handleCheckedChange = (checkedChangedValues: string[]) => {
+    setCheckedValues(checkedChangedValues);
+  };
   const getCheckedAreaNames = (): string[] => checkedValues.map(nodeId => nodeId.split('_')[1]);
 
   const filteredDeadlinesByText: DeadlineProps[] = deadlines.filter(deadline =>
@@ -22,28 +28,85 @@ function FilterPage({ deadlines, checkedValues }: FilterProps) {
     ),
   );
 
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   const filteredDeadlines: DeadlineProps[] =
     checkedValues.length > 0
       ? filteredDeadlinesByText.filter(deadline => getCheckedAreaNames().includes(deadline.area))
       : filteredDeadlinesByText;
 
-  return (
-    <Box width='100%' height='100%' display='flex' flexDirection='column' flexGrow='1'>
+  const filtersBox = () => (
+    <Box marginRight='1rem'>
       <TextField
         type='text'
         id='standard-basic'
-        label='Filter'
-        variant='standard'
+        variant='outlined'
         value={filterText}
+        fullWidth
         onChange={handleInputChange}
+        onKeyDown={e => {
+          e.stopPropagation();
+        }}
         placeholder='Type to filter'
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position='start'>
+              <SearchIcon fontSize='small' />
+            </InputAdornment>
+          ),
+          sx: {
+            borderRadius: '5px',
+            border: '1px solid rgba(0, 0, 0, 0.12)',
+            margin: '1rem 0',
+            paddingLeft: '0.5rem',
+            paddingRight: '0.5rem',
+            minHeight: '36px',
+            fontSize: '14px',
+          },
+          inputProps: {
+            style: {
+              padding: '6px 0', // Adjust vertical padding for better alignment
+            },
+          },
+        }}
       />
-      <Stack marginTop='15px' spacing={2} display='flex' alignItems='center' width='100%'>
-        {filteredDeadlines.map(deadline => (
-          <Conference key={deadline.deadlineId} {...deadline} />
-        ))}
-        {filteredDeadlines.length === 0 && <Typography>No results, try again!</Typography>}
-      </Stack>
+
+      <Typography variant='body1' display='flex' alignItems='center'>
+        Filter by Area
+      </Typography>
+      <FilterByArea deadlines={deadlines} checkedValues={checkedValues} onCheckedChange={handleCheckedChange} />
+    </Box>
+  );
+
+  return (
+    <Box width='100%' height='100%' display='flex' flexDirection='column' flexGrow='1'>
+      <Box display={{ xs: 'block', md: 'none' }} marginTop='0.5rem' justifyContent='center'>
+        <Button onClick={toggleDrawer}>
+          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
+        </Button>
+        <Drawer anchor='left' open={open} onClose={toggleDrawer}>
+          <Box role='presentation' onKeyDown={toggleDrawer} margin='1rem'>
+            {filtersBox()}
+          </Box>
+        </Drawer>
+      </Box>
+      <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }}>
+        <Box display={{ xs: 'none', md: 'block' }} width='300px'>
+          <Typography variant='h6' display='flex' alignItems='center'>
+            <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
+          </Typography>
+          {filtersBox()}
+        </Box>
+
+        <Stack marginTop='15px' spacing={2} display='flex' alignItems='center' width='100%'>
+          {filteredDeadlines.map(deadline => (
+            <Conference key={deadline.deadlineId} {...deadline} />
+          ))}
+          {filteredDeadlines.length === 0 && <Typography>No results, try again!</Typography>}
+        </Stack>
+      </Box>
     </Box>
   );
 }

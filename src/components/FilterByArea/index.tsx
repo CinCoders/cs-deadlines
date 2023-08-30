@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import { StyledTreeItemLabel } from './styles';
 
 interface FilterByAreaDeadlineProps {
@@ -21,12 +17,7 @@ interface FilterProps {
 }
 
 function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps) {
-  const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string[]>([]);
-
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
 
   const createTreeData = (deadlinesValue: FilterByAreaDeadlineProps[]) => {
     const treeData = new Map<string, string[]>();
@@ -95,11 +86,11 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
     }
   };
 
-  const filterTree = () => (
+  return (
     <TreeView
       aria-label='area-navigation system'
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
+      defaultCollapseIcon={<ExpandMoreIcon sx={{ margin: '6px' }} />}
+      defaultExpandIcon={<ChevronRightIcon sx={{ margin: '6px' }} />}
       multiSelect
       expanded={expanded}
       onNodeToggle={handleToggle}
@@ -150,31 +141,6 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
             );
           })}
     </TreeView>
-  );
-
-  return (
-    <div>
-      <Box display={{ xs: 'block', md: 'none' }} marginBottom='0.5rem' justifyContent='center'>
-        <Button onClick={toggleDrawer}>
-          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filters
-        </Button>
-        <Drawer anchor='left' open={open} onClose={toggleDrawer}>
-          <Box role='presentation' onKeyDown={toggleDrawer} margin='1rem'>
-            <Typography variant='h6' display='flex' alignItems='center'>
-              Filter by Area
-            </Typography>
-            {filterTree()}
-          </Box>
-        </Drawer>
-      </Box>
-
-      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-        <Typography variant='h6' display='flex' alignItems='center'>
-          <FilterListIcon sx={{ marginRight: '0.5rem' }} /> Filter by Area
-        </Typography>
-        {filterTree()}
-      </Box>
-    </div>
   );
 }
 

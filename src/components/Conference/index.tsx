@@ -1,6 +1,12 @@
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Countdown from 'react-countdown';
-import { StyledDeadlineTypography, StyledTimeTypography } from './styles';
+import {
+  StyledTitleTypography,
+  StyledDeadlineTypography,
+  StyledTimeTypography,
+  StyledDatesTypography,
+  StyledLocationLink,
+} from './styles';
 
 export interface DeadlineProps {
   deadlineId: string;
@@ -84,11 +90,11 @@ export function Conference({
         width='100%'
       >
         <Stack minWidth='50%'>
-          <Typography variant='h5'>
+          <StyledTitleTypography variant='h5'>
             <Link href={website} color='inherit' target='_blank'>
               {conference}
             </Link>
-          </Typography>
+          </StyledTitleTypography>
           <Stack spacing={0.5}>
             <Typography variant='body1' flexWrap='wrap'>
               {conferenceDetail}
@@ -99,13 +105,11 @@ export function Conference({
           </Stack>
         </Stack>
         <Stack spacing={0.5} minWidth='20%'>
-          <Typography textAlign='end' variant='body1'>
-            {conferenceDates}
-          </Typography>
+          <StyledDatesTypography variant='body1'>{conferenceDates}</StyledDatesTypography>
           <Typography textAlign='end'>
-            <Link variant='body1' target='_blank' href={`http://maps.google.com/?q=${location}`}>
+            <StyledLocationLink variant='body1' target='_blank' href={`http://maps.google.com/?q=${location}`}>
               {location}
-            </Link>
+            </StyledLocationLink>
           </Typography>
         </Stack>
         <Stack display='flex' justifyContent='flex-end' minWidth='30%' paddingLeft='30px'>
