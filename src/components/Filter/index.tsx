@@ -94,7 +94,6 @@ function FilterPage({ deadlines }: FilterProps) {
         }}
       />
       <div style={{ display: 'flex' }}>
-        {' '}
         <Typography variant='body1'>Filter by Area</Typography>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <IconButton sx={{ padding: '0' }} onClick={toggleSort}>

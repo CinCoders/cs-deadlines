@@ -107,6 +107,15 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange, sortTree }: F
     >
       {treeData.size > 0 &&
         sortedTreeData.map(([greatArea, areas]) => {
+          let sortedAreas;
+          if (sortTree === 0) {
+            sortedAreas = Array.from(areas);
+          } else if (sortTree === 1) {
+            sortedAreas = Array.from(areas).sort((a, b) => a[0].localeCompare(b[0]));
+          } else {
+            sortedAreas = Array.from(areas).sort((a, b) => b[0].localeCompare(a[0]));
+          }
+
           const parentChecked = areas.every(area => checkedValues.includes(`${greatArea}_${area}`));
           const parentIndeterminate =
             areas.some(area => checkedValues.includes(`${greatArea}_${area}`)) && !parentChecked;
@@ -126,7 +135,7 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange, sortTree }: F
                 </StyledTreeItemLabel>
               }
             >
-              {areas.map(area => {
+              {sortedAreas.map(area => {
                 const childNodeId = `${greatArea}_${area}`;
                 return (
                   <TreeItem
