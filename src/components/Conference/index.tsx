@@ -46,7 +46,7 @@ export function Conference({
       return (
         <StyledTimeTypography variant='h5'>
           {days}
-          {days === 1 ? 'day, ' : 'days, '}
+          {days === 1 ? 'day, ' : ' days, '}
           {hours}
           {'h, '}
           {minutes}

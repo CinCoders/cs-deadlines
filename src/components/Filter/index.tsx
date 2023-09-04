@@ -12,30 +12,7 @@ import FilterByArea from '../FilterByArea';
 interface FilterProps {
   deadlines: DeadlineProps[];
 }
-// function Icon() {
-//   return (
-//     <span
-//       style={{
-//         display: 'flex',
-//         flexDirection: 'column',
-//         justifyContent: 'Center',
-//         alignItems: 'Center',
-//         // marginLeft: '5px',
-//       }}
-//     >
-//       <ArrowDropUpIcon
-//         sx={{
-//           position: 'absolute',
-//           bottom: '-20px',
-//           left: '50%',
-//           // transform: 'translateX(-10%)',
-//           // zIndex: sortDescending ? 1 : 0,
-//         }}
-//       />
-//       <ArrowDropDownIcon sx={{ position: 'absolute', top: '5px', left: '50%' }} />
-//     </span>
-//   );
-// }
+
 function FilterPage({ deadlines }: FilterProps) {
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [filterText, setFilterText] = useState('');
@@ -62,7 +39,6 @@ function FilterPage({ deadlines }: FilterProps) {
 
   const toggleSort = () => {
     setSortTree(prevSortTree => (prevSortTree + 1) % 3);
-    console.log(sortTree);
   };
 
   const iconUpStyle = {
@@ -122,10 +98,8 @@ function FilterPage({ deadlines }: FilterProps) {
         <Typography variant='body1'>Filter by Area</Typography>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <IconButton sx={{ padding: '0' }} onClick={toggleSort}>
-            {/* {sortTree ? ( */}
             <ArrowDropUpIcon fontSize='small' style={iconUpStyle} />
             <ArrowDropDownIcon fontSize='small' style={iconDownStyle} />
-            {/* // )} */}
           </IconButton>
         </div>
       </div>
