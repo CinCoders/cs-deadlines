@@ -57,16 +57,27 @@ function Home() {
   return (
     <>
       <TextContainer>
-        <Typography variant='h6'>
+        <Typography variant='h6' sx={{ boxSizing: 'border-box', width: '100%' }}>
           {'The top CS conferences are listed in '}
           <Link target='_blank' href='https://CSRankings.org'>
             CSRankings.org
           </Link>
         </Typography>
-        <Typography variant='body2' style={{ marginLeft: '8px', marginTop: '8px', fontStyle: 'italic' }}>
-          <strong> Disclaimer:</strong> We are not responsible for the dates, which were taken directly from the
-          conference websites.
+        {/* <div style={{ border: '1px solid', borderRadius: '8px', padding: '0.5rem' }}> */}
+        <Typography variant='body2' style={{ fontStyle: 'italic' }}>
+          <strong>Disclaimers: </strong>
         </Typography>
+
+        <Typography variant='body2' style={{ marginTop: '8px', fontStyle: 'italic' }}>
+          {/* <strong>Disclaimer: </strong> */}
+          We are not responsible for the dates, which were taken directly from the conference websites.
+        </Typography>
+        <Typography variant='body2' style={{ fontStyle: 'italic' }}>
+          {/* <strong>Disclaimer: </strong> */}
+          The deadlines indicated are for the submission of full papers. Please visit the event page to check for
+          earlier dates for registering abstracts.
+        </Typography>
+        {/* </div> */}
       </TextContainer>
       {loading && (
         <Box display='flex' justifyContent='center' alignItems='center' flexGrow='1' width='100%'>
