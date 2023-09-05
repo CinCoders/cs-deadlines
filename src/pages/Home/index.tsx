@@ -63,6 +63,10 @@ function Home() {
             CSRankings.org
           </Link>
         </Typography>
+        <Typography variant='body2' style={{ marginLeft: '8px', marginTop: '8px', fontStyle: 'italic' }}>
+          <strong> Disclaimer:</strong> We are not responsible for the dates, which were taken directly from the
+          conference websites.
+        </Typography>
       </TextContainer>
       {loading && (
         <Box display='flex' justifyContent='center' alignItems='center' flexGrow='1' width='100%'>

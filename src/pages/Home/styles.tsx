@@ -12,4 +12,5 @@ export const FilterContainer = styled('div')({
 
 export const TextContainer = styled('div')({
   display: 'flex',
+  flexWrap: 'wrap',
 });
