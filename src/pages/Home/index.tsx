@@ -63,21 +63,19 @@ function Home() {
             CSRankings.org
           </Link>
         </Typography>
-        {/* <div style={{ border: '1px solid', borderRadius: '8px', padding: '0.5rem' }}> */}
-        <Typography variant='body2' style={{ fontStyle: 'italic' }}>
-          <strong>Disclaimers: </strong>
-        </Typography>
+        <div>
+          <Typography variant='body2' style={{ marginTop: '8px', fontStyle: 'italic' }}>
+            <strong>Disclaimers: </strong>
+          </Typography>
 
-        <Typography variant='body2' style={{ marginTop: '8px', fontStyle: 'italic' }}>
-          {/* <strong>Disclaimer: </strong> */}
-          We are not responsible for the dates, which were taken directly from the conference websites.
-        </Typography>
-        <Typography variant='body2' style={{ fontStyle: 'italic' }}>
-          {/* <strong>Disclaimer: </strong> */}
-          The deadlines indicated are for the submission of full papers. Please visit the event page to check for
-          earlier dates for registering abstracts.
-        </Typography>
-        {/* </div> */}
+          <Typography variant='body2' style={{ fontStyle: 'italic' }}>
+            We are not responsible for the dates, which were taken directly from the conference websites.
+          </Typography>
+          <Typography variant='body2' style={{ fontStyle: 'italic' }}>
+            The deadlines indicated are for the submission of full papers. Please visit the event page to check for
+            earlier dates for registering abstracts.
+          </Typography>
+        </div>
       </TextContainer>
       {loading && (
         <Box display='flex' justifyContent='center' alignItems='center' flexGrow='1' width='100%'>
