@@ -9,6 +9,7 @@ import { StyledTreeItemLabel } from './styles';
 interface FilterByAreaDeadlineProps {
   greatArea: string;
   area: string;
+  deadlineId: string;
 }
 interface FilterProps {
   deadlines: FilterByAreaDeadlineProps[];
@@ -22,7 +23,22 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange, sortTree }: F
 
   const createTreeData = (deadlinesValue: FilterByAreaDeadlineProps[]) => {
     const treeData = new Map<string, string[]>();
-    deadlinesValue.forEach(deadline => {
+    const sortedDeadlines = [...deadlinesValue];
+
+    sortedDeadlines.sort((a, b) => {
+      const deadlineIdA = parseInt(a.deadlineId, 10);
+      const deadlineIdB = parseInt(b.deadlineId, 10);
+
+      if (deadlineIdA < deadlineIdB) {
+        return -1;
+      }
+      if (deadlineIdA > deadlineIdB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    sortedDeadlines.forEach(deadline => {
       const { greatArea, area } = deadline;
       if (!treeData.has(greatArea)) {
         treeData.set(greatArea, []);
