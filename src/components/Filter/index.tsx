@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Stack, Typography, TextField, Drawer, Button, InputAdornment } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import IconButton from '@mui/material/IconButton';
+
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
 import { Conference, DeadlineProps } from '../Conference';
 import FilterByArea from '../FilterByArea';
@@ -13,6 +17,7 @@ function FilterPage({ deadlines }: FilterProps) {
   const [checkedValues, setCheckedValues] = useState<string[]>([]);
   const [filterText, setFilterText] = useState('');
   const [open, setOpen] = useState(false);
+  const [sortTree, setSortTree] = useState(0);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterText(event.target.value);
@@ -32,6 +37,22 @@ function FilterPage({ deadlines }: FilterProps) {
     setOpen(!open);
   };
 
+  const toggleSort = () => {
+    setSortTree(prevSortTree => (prevSortTree + 1) % 3);
+  };
+
+  const iconUpStyle = {
+    color: sortTree === 1 ? 'black' : 'gray',
+    position: 'absolute' as const,
+    bottom: '-18px',
+    left: '50%',
+  };
+  const iconDownStyle = {
+    color: sortTree === 2 ? 'black' : 'gray',
+    position: 'absolute' as const,
+    top: '6px',
+    left: '50%',
+  };
   const filteredDeadlines: DeadlineProps[] =
     checkedValues.length > 0
       ? filteredDeadlinesByText.filter(deadline => getCheckedAreaNames().includes(deadline.area))
@@ -67,16 +88,26 @@ function FilterPage({ deadlines }: FilterProps) {
           },
           inputProps: {
             style: {
-              padding: '6px 0', // Adjust vertical padding for better alignment
+              padding: '6px 0',
             },
           },
         }}
       />
-
-      <Typography variant='body1' display='flex' alignItems='center'>
-        Filter by Area
-      </Typography>
-      <FilterByArea deadlines={deadlines} checkedValues={checkedValues} onCheckedChange={handleCheckedChange} />
+      <div style={{ display: 'flex' }}>
+        <Typography variant='body1'>Filter by Area</Typography>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton sx={{ padding: '0' }} onClick={toggleSort}>
+            <ArrowDropUpIcon fontSize='small' style={iconUpStyle} />
+            <ArrowDropDownIcon fontSize='small' style={iconDownStyle} />
+          </IconButton>
+        </div>
+      </div>
+      <FilterByArea
+        deadlines={deadlines}
+        checkedValues={checkedValues}
+        onCheckedChange={handleCheckedChange}
+        sortTree={sortTree}
+      />
     </Box>
   );
 

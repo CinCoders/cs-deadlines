@@ -9,19 +9,36 @@ import { StyledTreeItemLabel } from './styles';
 interface FilterByAreaDeadlineProps {
   greatArea: string;
   area: string;
+  deadlineId: string;
 }
 interface FilterProps {
   deadlines: FilterByAreaDeadlineProps[];
   checkedValues: string[];
   onCheckedChange: (checked: string[]) => void;
+  sortTree: number;
 }
 
-function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps) {
+function FilterByArea({ deadlines, checkedValues, onCheckedChange, sortTree }: FilterProps) {
   const [expanded, setExpanded] = useState<string[]>([]);
 
   const createTreeData = (deadlinesValue: FilterByAreaDeadlineProps[]) => {
     const treeData = new Map<string, string[]>();
-    deadlinesValue.forEach(deadline => {
+    const sortedDeadlines = [...deadlinesValue];
+
+    sortedDeadlines.sort((a, b) => {
+      const deadlineIdA = parseInt(a.deadlineId, 10);
+      const deadlineIdB = parseInt(b.deadlineId, 10);
+
+      if (deadlineIdA < deadlineIdB) {
+        return -1;
+      }
+      if (deadlineIdA > deadlineIdB) {
+        return 1;
+      }
+      return 0;
+    });
+
+    sortedDeadlines.forEach(deadline => {
       const { greatArea, area } = deadline;
       if (!treeData.has(greatArea)) {
         treeData.set(greatArea, []);
@@ -86,6 +103,15 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
     }
   };
 
+  let sortedTreeData;
+  if (sortTree === 0) {
+    sortedTreeData = Array.from(treeData);
+  } else if (sortTree === 1) {
+    sortedTreeData = Array.from(treeData).sort((a, b) => a[0].localeCompare(b[0]));
+  } else {
+    sortedTreeData = Array.from(treeData).sort((a, b) => b[0].localeCompare(a[0]));
+  }
+
   return (
     <TreeView
       aria-label='area-navigation system'
@@ -96,50 +122,57 @@ function FilterByArea({ deadlines, checkedValues, onCheckedChange }: FilterProps
       onNodeToggle={handleToggle}
     >
       {treeData.size > 0 &&
-        Array.from(treeData)
-          .sort((a, b) => a[0].localeCompare(b[0]))
-          .map(([greatArea, areas]) => {
-            const parentChecked = areas.every(area => checkedValues.includes(`${greatArea}_${area}`));
-            const parentIndeterminate =
-              areas.some(area => checkedValues.includes(`${greatArea}_${area}`)) && !parentChecked;
+        sortedTreeData.map(([greatArea, areas]) => {
+          let sortedAreas;
+          if (sortTree === 0) {
+            sortedAreas = Array.from(areas);
+          } else if (sortTree === 1) {
+            sortedAreas = Array.from(areas).sort((a, b) => a[0].localeCompare(b[0]));
+          } else {
+            sortedAreas = Array.from(areas).sort((a, b) => b[0].localeCompare(a[0]));
+          }
 
-            return (
-              <TreeItem
-                key={greatArea}
-                nodeId={greatArea}
-                label={
-                  <StyledTreeItemLabel>
-                    <Checkbox
-                      checked={parentChecked}
-                      indeterminate={parentIndeterminate}
-                      onChange={e => handleCheckboxChange(e, greatArea)}
-                    />
-                    {greatArea}
-                  </StyledTreeItemLabel>
-                }
-              >
-                {areas.map(area => {
-                  const childNodeId = `${greatArea}_${area}`;
-                  return (
-                    <TreeItem
-                      key={childNodeId}
-                      nodeId={childNodeId}
-                      label={
-                        <StyledTreeItemLabel>
-                          <Checkbox
-                            size='small'
-                            checked={checkedValues.includes(childNodeId)}
-                            onChange={e => handleCheckboxChange(e, childNodeId)}
-                          />
-                          {area}
-                        </StyledTreeItemLabel>
-                      }
-                    />
-                  );
-                })}
-              </TreeItem>
-            );
-          })}
+          const parentChecked = areas.every(area => checkedValues.includes(`${greatArea}_${area}`));
+          const parentIndeterminate =
+            areas.some(area => checkedValues.includes(`${greatArea}_${area}`)) && !parentChecked;
+
+          return (
+            <TreeItem
+              key={greatArea}
+              nodeId={greatArea}
+              label={
+                <StyledTreeItemLabel>
+                  <Checkbox
+                    checked={parentChecked}
+                    indeterminate={parentIndeterminate}
+                    onChange={e => handleCheckboxChange(e, greatArea)}
+                  />
+                  {greatArea}
+                </StyledTreeItemLabel>
+              }
+            >
+              {sortedAreas.map(area => {
+                const childNodeId = `${greatArea}_${area}`;
+                return (
+                  <TreeItem
+                    key={childNodeId}
+                    nodeId={childNodeId}
+                    label={
+                      <StyledTreeItemLabel>
+                        <Checkbox
+                          size='small'
+                          checked={checkedValues.includes(childNodeId)}
+                          onChange={e => handleCheckboxChange(e, childNodeId)}
+                        />
+                        {area}
+                      </StyledTreeItemLabel>
+                    }
+                  />
+                );
+              })}
+            </TreeItem>
+          );
+        })}
     </TreeView>
   );
 }
