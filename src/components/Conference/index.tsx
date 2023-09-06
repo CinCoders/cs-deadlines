@@ -56,7 +56,11 @@ export function Conference({
       );
     }
 
-    return <Typography variant='body2'>The submission deadline has passed.</Typography>;
+    return (
+      <Typography variant='body2' fontWeight='bold'>
+        The submission deadline has passed.
+      </Typography>
+    );
   };
 
   return (
