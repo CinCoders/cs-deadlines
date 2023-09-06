@@ -69,11 +69,15 @@ function Home() {
           </Typography>
 
           <Typography variant='body2' style={{ fontStyle: 'italic' }}>
-            We are not responsible for the dates, which were taken directly from the conference websites.
+            <strong>
+              We are not responsible for the dates, which were taken directly from the conference websites.
+            </strong>
           </Typography>
           <Typography variant='body2' style={{ fontStyle: 'italic' }}>
-            The deadlines indicated are for the submission of full papers. Please visit the event page to check for
-            earlier dates for registering abstracts.
+            <strong>
+              The deadlines indicated are for the submission of full papers. Please visit the event page to check for
+              earlier dates for registering abstracts.
+            </strong>
           </Typography>
         </div>
       </TextContainer>
