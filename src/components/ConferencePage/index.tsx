@@ -29,6 +29,7 @@ export default function ConferencePage({ children }: PageProps) {
         isLandingPage: true,
         hiddenUser: true,
         logoSrc,
+        logoRedirectUrl: 'https://portal.cin.ufpe.br/',
       }}
       footer={{
         copyrightText: 'CIn UFPE | Todos os direitos reservados',
