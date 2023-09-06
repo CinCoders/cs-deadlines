@@ -57,7 +57,7 @@ export function Conference({
     }
 
     return (
-      <Typography variant='body2' fontWeight='bold'>
+      <Typography fontWeight='bold' sx={{ fontSize: 'clamp(0.85rem, 2.5vw, 1rem)' }}>
         The submission deadline has passed.
       </Typography>
     );
