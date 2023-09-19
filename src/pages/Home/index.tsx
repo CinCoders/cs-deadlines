@@ -64,19 +64,19 @@ function Home() {
           </Link>
         </Typography>
         <div>
-          <Typography variant='body2' style={{ marginTop: '8px', fontStyle: 'italic' }}>
+          <Typography variant='body2' style={{ marginTop: '8px' }}>
             <strong>Disclaimers: </strong>
           </Typography>
 
-          <Typography variant='body2' style={{ fontStyle: 'italic' }}>
+          <Typography variant='body2'>
             <strong>
               We are not responsible for the dates, which were taken directly from the conference websites.
             </strong>
           </Typography>
-          <Typography variant='body2' style={{ fontStyle: 'italic' }}>
+          <Typography variant='body2'>
             <strong>
-              The deadlines indicated are for the submission of full papers. Please visit the event page to check for
-              earlier dates for registering abstracts.
+              The deadlines are for submitting full papers to the main track of the conferences. Please visit the
+              conference website to check for earlier paper registration dates.
             </strong>
           </Typography>
         </div>
