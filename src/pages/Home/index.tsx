@@ -43,6 +43,7 @@ function Home() {
           conferenceDates: deadline[rawDeadlines[0].indexOf('ConferenceDates')],
           location: deadline[rawDeadlines[0].indexOf('Location')],
           submissionDeadline: new Date(deadline[rawDeadlines[0].indexOf('DeadlineISO')]),
+          deadlineTimezone: deadline[rawDeadlines[0].indexOf('DeadlineTimeZone')],
           deadlineDetails: deadline[15],
         }));
 
