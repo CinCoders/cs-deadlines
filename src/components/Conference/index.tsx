@@ -1,5 +1,6 @@
 import { Box, Link, Stack, Typography } from '@mui/material';
 import Countdown from 'react-countdown';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import {
   StyledTitleTypography,
   StyledDeadlineTypography,
@@ -18,6 +19,7 @@ export interface DeadlineProps {
   conferenceDates: string;
   location: string;
   submissionDeadline: Date;
+  deadlineTimezone: string;
   deadlineDetails: string;
 }
 
@@ -31,11 +33,20 @@ export function Conference({
   conferenceDates,
   location,
   submissionDeadline,
+  deadlineTimezone,
   deadlineDetails,
 }: DeadlineProps) {
   const renderCountdown = () => {
     const now = new Date();
-    const timeDiff = submissionDeadline.getTime() - now.getTime();
+    const UTCDeadline =
+      deadlineTimezone.length > 0 ? zonedTimeToUtc(submissionDeadline, deadlineTimezone) : submissionDeadline;
+
+    let timeDiff = 0;
+    if (Number.isNaN(UTCDeadline.getTime())) {
+      timeDiff = submissionDeadline.getTime() - now.getTime();
+    } else {
+      timeDiff = UTCDeadline.getTime() - now.getTime();
+    }
 
     if (timeDiff > 0) {
       const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
