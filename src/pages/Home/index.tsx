@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import FilterPage from '../../components/Filter';
 import { FilterContainer, TextContainer } from './styles';
 import { DeadlineProps } from '../../components/Conference';
+import { CookieConsent } from '../../components/CookieConsent';
 
 function compare(a: DeadlineProps, b: DeadlineProps) {
   if (a.submissionDeadline < b.submissionDeadline) {
@@ -82,6 +83,7 @@ function Home() {
           </Typography>
         </div>
       </TextContainer>
+      <CookieConsent />
       {loading && (
         <Box display='flex' justifyContent='center' alignItems='center' flexGrow='1' width='100%'>
           <CircularProgress />
