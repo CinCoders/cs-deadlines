@@ -21,11 +21,23 @@ export function CookieConsent() {
         fontWeight: 'bold',
         color: '#fafafa',
       }}
-      onAccept={() => {}}
-      onDecline={() => {}}
+      onAccept={() => {
+        ('');
+      }}
+      onDecline={() => {
+        ('');
+      }}
       expires={150}
+      style={{ background: 'rgba(53, 53, 53, 0.97)', backdropFilter: 'blur(20px);' }}
     >
-      O CS Conference Deadlines utiliza cookies para garantir que você obtenha a melhor experiência em nosso site.
+      <h3>Nós nos importamos com sua Privacidade </h3>
+      <div style={{ textAlign: 'justify' }}>
+        O site CS Conference Deadlines utiliza cookies para coletar dados sobre visitas e origem do tráfego dos nossos
+        visitantes. Estes rastreadores nos ajudam a melhorar nossos serviços continuamente. Todas as informações
+        coletadas por esse tipo de cookies são agregadas, o que significa que não conseguimos identificá-lo
+        individualmente. Se você não permitir estes cookies, não saberemos quando visitou nossas plataformas. Ao clicar
+        em &quot;Aceitar&quot;, você concorda com o uso desses cookies.
+      </div>
     </ReactCookieConsent>
   );
 }
