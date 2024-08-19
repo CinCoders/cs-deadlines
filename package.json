@@ -1,6 +1,6 @@
 {
   "name": "cs-deadlines",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Deadlines from the Top Computer Science Conferences!",
   "license": "MIT",
   "private": true,
@@ -20,7 +20,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@cincoders/cinnamon": "^1.2.0",
+    "@cincoders/cinnamon": "^1.3.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.1",
