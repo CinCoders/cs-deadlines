@@ -1,11 +1,30 @@
-import ReactCookieConsent from 'react-cookie-consent';
+import { useEffect } from 'react';
+import ReactCookieConsent, { getCookieConsentValue } from 'react-cookie-consent';
+import ReactGA from 'react-ga4';
 
 export function CookieConsent() {
+  function allConsentUpdate(granted: boolean) {
+    const state = granted ? 'granted' : 'denied';
+
+    ReactGA.gtag('consent', 'update', {
+      ad_storage: state,
+      ad_user_data: state,
+      ad_personalization: state,
+      analytics_storage: state,
+    });
+  }
+
+  useEffect(() => {
+    if (getCookieConsentValue('CookieConsent') === 'true') {
+      allConsentUpdate(true);
+    }
+  }, []);
+
   return (
     <ReactCookieConsent
       location='bottom'
-      buttonText='Aceitar'
-      declineButtonText='Rejeitar'
+      buttonText='Accept'
+      declineButtonText='Decline'
       enableDeclineButton
       buttonStyle={{
         background: '#db1e2f',
@@ -21,22 +40,13 @@ export function CookieConsent() {
         fontWeight: 'bold',
         color: '#fafafa',
       }}
-      onAccept={() => {
-        ('');
-      }}
-      onDecline={() => {
-        ('');
-      }}
+      onAccept={() => allConsentUpdate(true)}
+      onDecline={() => allConsentUpdate(false)}
       expires={150}
-      style={{ background: 'rgba(53, 53, 53, 0.97)', backdropFilter: 'blur(20px);' }}
+      style={{ background: 'rgba(53, 53, 53, 0.97)', backdropFilter: 'blur(20px)' }}
     >
-      <h3>Nós nos importamos com sua Privacidade </h3>
       <div style={{ textAlign: 'justify' }}>
-        O site CS Conference Deadlines utiliza cookies para coletar dados sobre visitas e origem do tráfego dos nossos
-        visitantes. Estes rastreadores nos ajudam a melhorar nossos serviços continuamente. Todas as informações
-        coletadas por esse tipo de cookies são agregadas, o que significa que não conseguimos identificá-lo
-        individualmente. Se você não permitir estes cookies, não saberemos quando visitou nossas plataformas. Ao clicar
-        em &quot;Aceitar&quot;, você concorda com o uso desses cookies.
+        This website uses cookies to ensure you get the best experience on our website.
       </div>
     </ReactCookieConsent>
   );
