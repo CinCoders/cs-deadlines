@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Page } from '@cincoders/cinnamon';
 import logoCin from '../../assets/cin-logo.svg';
 import logoCinSmall from '../../assets/cin-logo-small.svg';
+import { CookieConsent } from '../CookieConsent';
 
 interface PageProps {
   children: JSX.Element | JSX.Element[];
@@ -38,7 +39,8 @@ export default function ConferencePage({ children }: PageProps) {
       haveToast={false}
       createNavbarContext={false}
     >
-      {children}
+      <div>{children}</div>
+      <CookieConsent />
     </Page>
   );
 }
