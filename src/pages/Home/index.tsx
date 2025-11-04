@@ -71,13 +71,13 @@ function Home() {
 
           <Typography variant='body2'>
             <strong>
-              We are not responsible for the dates, which were taken directly from the conference websites.
+              We are not responsible for the dates, as they were obtained directly from the conference websites.
             </strong>
           </Typography>
           <Typography variant='body2'>
             <strong>
-              The deadlines are for submitting full papers to the main track of the conferences. Please visit the
-              conference website to check for earlier paper registration dates.
+              The listed deadlines refer to full paper submissions for the main conference track. For earlier
+              registration dates, please consult the conference website.
             </strong>
           </Typography>
         </div>
