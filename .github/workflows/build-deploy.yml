@@ -33,7 +33,7 @@ jobs:
           REACT_APP_GOOGLE_ANALYTICS_ID: ${{ vars.REACT_APP_GOOGLE_ANALYTICS_ID }}
 
       - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           name: github-pages
           path: ./build
@@ -55,4 +55,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
